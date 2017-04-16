@@ -12,7 +12,7 @@ int Memory::GetProcessId(char* processName) {
     
     if( Process32First( hSnapshot, &pe32 ) ) {
         do {
-			char* pchar = Utils_WideChar_To_Utf8(pe32.szExeFile);
+			const char* pchar = Utils_WideChar_To_Utf8(pe32.szExeFile).c_str();
 			if (strcmp(pchar, processName) == 0)
                 break;
         } while( Process32Next( hSnapshot, &pe32 ) );

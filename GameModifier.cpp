@@ -3,10 +3,10 @@
 #include <windows.h>
 #include <TlHelp32.h>
 #include <sys\timeb.h>
-
-#define KONEK 1024
-#define KPAGE 4*KONEK
-#define KONEG KONEK*KONEK*KONEK
+#include "Utils.h"
+#define KILO 1024
+#define PAGE 4*KILO //4k
+#define MEGE KILO*KILO*KILO
 #define KFILELEN 60
 
 BOOL CompareAPage(DWORD dwBaseAddr,DWORD dwValue);
@@ -20,14 +20,16 @@ BOOL closeProcess(DWORD dwId);
 void showMenu();
 DWORD getProcessId();
 DWORD GetBaseAddress(DWORD dwPID);
+DWORD GetProcessIDByName(wchar_t * pName);
 
-DWORD g_dwAddList[KPAGE] = {0};
+DWORD g_dwAddList[PAGE*PAGE] = {0};
 DWORD g_dwCount = 0;
 HANDLE g_hProcess = NULL;
 DWORD g_dwId = 0;
 
 int main(int argc,char *argv[])
 {
+#if 0
 	UINT uIndex = 0;
 	DWORD dwId;
 	while(1)
@@ -58,6 +60,17 @@ int main(int argc,char *argv[])
 	}
 	
 	system("pause");
+#endif
+	UINT uIndex = 0;
+	printf("start getProcessIDByName ! \n");
+	GetProcessIDByName(L"CrackMe.exe");
+
+	printf("start editValue :%d \n",g_dwId);
+	editValue(g_dwId);
+	
+	printf("start closeProcess !\n");
+	//closeProcess(g_dwId);
+	system("pause");
 	return 0;
 }
 
@@ -87,7 +100,7 @@ DWORD getProcessId()
 
 #pragma comment(lib, "version.lib" )
 
-bool GetOSVersionString(WCHAR* version, size_t maxlen)
+bool GetOSVersionString(VS_FIXEDFILEINFO *vInfo)
 {
 	WCHAR path[_MAX_PATH];
 	if (!GetSystemDirectoryW(path, _MAX_PATH))
@@ -120,7 +133,7 @@ bool GetOSVersionString(WCHAR* version, size_t maxlen)
 #endif
 		return false;
 
-	VS_FIXEDFILEINFO *vInfo = nullptr;
+
 	UINT infoSize;
 
 	if (!VerQueryValueW(buff.get(), L"\\", reinterpret_cast<LPVOID*>(&vInfo), &infoSize))
@@ -129,11 +142,13 @@ bool GetOSVersionString(WCHAR* version, size_t maxlen)
 	if (!infoSize)
 		return false;
 
-	swprintf_s(version, maxlen, L"%u.%u.%u.%u",
+	wchar_t szVersion[MAX_PATH] = { 0 };
+	swprintf_s(szVersion, MAX_PATH, L"%u.%u.%u.%u",
 		HIWORD(vInfo->dwFileVersionMS),
 		LOWORD(vInfo->dwFileVersionMS),
 		HIWORD(vInfo->dwFileVersionLS),
 		LOWORD(vInfo->dwFileVersionLS));
+	printf("OS version: %s\n", Utils_WideChar_To_Utf8(szVersion).c_str());
 
 	return true;
 }
@@ -168,8 +183,8 @@ void editValue(DWORD dwId)
 
 BOOL CompareAPage(DWORD dwBaseAddr,DWORD dwValue)
 {
-	BYTE bytes[KPAGE];
-	if (!ReadProcessMemory(g_hProcess,(LPCVOID)dwBaseAddr,bytes,KPAGE,NULL))
+	BYTE bytes[PAGE];
+	if (!ReadProcessMemory(g_hProcess,(LPCVOID)dwBaseAddr,bytes,PAGE,NULL))
 	{
 		//printf("读取内存失败\n");
 		return FALSE;
@@ -177,7 +192,7 @@ BOOL CompareAPage(DWORD dwBaseAddr,DWORD dwValue)
 
 	DWORD *pdw = (DWORD*)bytes;
 
-	for (int i=0;i<KONEK;i++)
+	for (int i=0;i<KILO;i++)
 	{
 		if (pdw[i] == dwValue)
 		{
@@ -189,20 +204,24 @@ BOOL CompareAPage(DWORD dwBaseAddr,DWORD dwValue)
 
 BOOL FindFirst(DWORD dwValue)
 {
-	OSVERSIONINFO vi = {sizeof(vi)};
-	//GetVersionEx(&vi);
+
+	VS_FIXEDFILEINFO versionInfo;
+	if (!GetOSVersionString(&versionInfo))
+	{
+		return FALSE;
+	}
 	DWORD dwBase;
 
-	if (vi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS)
-	{
-		printf("Windows 98\n");
-		dwBase = 4 * KONEK * KONEK;
-	}
-	else if (vi.dwPlatformId == VER_PLATFORM_WIN32_NT)
-	{
+	//if (vi.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS)
+	//{
+	//	printf("Windows 98\n");
+	//	dwBase = 4 * KONEK * KONEK;
+	//}
+	////else if (vi.dwPlatformId == VER_PLATFORM_WIN32_NT)
+	//{
 		printf("Windows NT\n");
-		dwBase = 64 * KONEK;
-	}
+		dwBase = 64 * KILO;
+	//}
 	g_dwCount = 0;
 
 	DWORD dwOld = 0;
@@ -215,10 +234,11 @@ BOOL FindFirst(DWORD dwValue)
 
 	ftime(&start);
 
-	//dwBase = GetBaseAddress(g_dwId);
-	for (;dwBase < 2 * KONEG;dwBase+=KPAGE)
+	dwBase = GetBaseAddress(g_dwId);
+	//2G /4k =2 k* k*k*k 
+	for (;dwBase < 2 * MEGE; dwBase+=PAGE)
 	{
-		dwNew = dwBase/(KONEG/50);
+		dwNew = dwBase/(MEGE/50);
 		if (dwNew != dwOld)
 		{
 			printf("\b\b%02d",dwNew);
@@ -293,6 +313,36 @@ BOOL closeProcess(DWORD dwId)
 	return bRet;
 }
 
+DWORD GetProcessIDByName(wchar_t * pName)
+{
+	PROCESSENTRY32 pc;
+	pc.dwSize = sizeof(pc);
+
+	HANDLE dProcessSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+
+	if (INVALID_HANDLE_VALUE == dProcessSnap)
+	{
+		printf("获得进程失败");
+		system("pause");
+		return 0;
+	}
+
+	BOOL bMore = Process32First(dProcessSnap, &pc);
+
+	while (bMore)
+	{
+		if (wcscmp(pc.szExeFile, pName) == 0)
+		{
+			g_dwId = pc.th32ProcessID;
+			break;
+		}
+		bMore = Process32Next(dProcessSnap, &pc);
+	}
+
+	CloseHandle(dProcessSnap);
+	return 0;
+}
+
 void showAllProcess()
 {
 	PROCESSENTRY32 pc;
@@ -311,7 +361,7 @@ void showAllProcess()
 
 	while (bMore)
 	{
-		printf("进程ID:%4d | 进程名称：%s\n",pc.th32ProcessID,pc.szExeFile);
+		printf("进程ID:%4d | 进程名称：%s\n", pc.th32ProcessID, Utils_WideChar_To_Utf8(pc.szExeFile).c_str());
 		bMore = Process32Next(dProcessSnap,&pc);
 	}
 

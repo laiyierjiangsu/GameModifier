@@ -138,7 +138,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		switch (wmId)
 		{
 		case IDM_ABOUT:
-			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+			//DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+		{
+						  stTestMem.Tip();
+
+		}
+			break;
+		case ID_HELP_CHANGE:
+		{
+							   stTestMem.Change();
+		}
 			break;
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
@@ -164,8 +173,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 // Message handler for about box.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
+
 	UNREFERENCED_PARAMETER(lParam);
-	switch (message)
+	/*switch (message)
 	{
 	case WM_INITDIALOG:
 		return (INT_PTR)TRUE;
@@ -177,6 +187,6 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 			return (INT_PTR)TRUE;
 		}
 		break;
-	}
+	}*/
 	return (INT_PTR)FALSE;
 }

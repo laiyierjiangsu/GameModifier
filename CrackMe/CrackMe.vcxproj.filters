@@ -30,12 +30,18 @@
     <ClInclude Include="CrackMe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestMem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CrackMe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestMem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
