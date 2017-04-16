@@ -1,5 +1,6 @@
-#include "stdafx.hpp"
+#include "..\stdafx.h"
 #include "Memory.hpp"
+#include "..\Utils.h"
 
 int Memory::GetProcessId(char* processName) {
     SetLastError(0);
@@ -11,7 +12,8 @@ int Memory::GetProcessId(char* processName) {
     
     if( Process32First( hSnapshot, &pe32 ) ) {
         do {
-            if( strcmp( pe32.szExeFile, processName ) == 0 )
+			char* pchar = Utils_WideChar_To_Utf8(pe32.szExeFile);
+			if (strcmp(pchar, processName) == 0)
                 break;
         } while( Process32Next( hSnapshot, &pe32 ) );
     }
@@ -36,7 +38,7 @@ int Memory::GetModuleBase(HANDLE processHandle, string &sModuleName)
     
     if(EnumProcessModules(processHandle, hModules, cModules/sizeof(HMODULE), &cModules)) { 
        for(size_t i = 0; i < cModules/sizeof(HMODULE); i++) { 
-          if(GetModuleBaseName(processHandle, hModules[i], szBuf, sizeof(szBuf))) { 
+          if(GetModuleBaseNameA(processHandle, hModules[i], szBuf, sizeof(szBuf))) { 
              if(sModuleName.compare(szBuf) == 0) { 
                 dwBase = (DWORD)hModules[i]; 
                 break; 
@@ -96,7 +98,7 @@ int Memory::ReadInt(HANDLE processHandle, int address) {
     SIZE_T NumberOfBytesActuallyRead;
     BOOL success = ReadProcessMemory(processHandle, (LPCVOID)address, &buffer, NumberOfBytesToRead, &NumberOfBytesActuallyRead);
     if (!success || NumberOfBytesActuallyRead != NumberOfBytesToRead) {
-        std::cout << "Memory Error!" << std::endl;
+        printf("Memory Error!\n");
         return -1;
     }
     //if (err || NumberOfBytesActuallyRead != NumberOfBytesToRead) {

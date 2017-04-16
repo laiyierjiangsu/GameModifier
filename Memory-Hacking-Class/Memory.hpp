@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.hpp"
+#include "..\stdafx.h"
 #include "Memory.hpp"
 #include <Windows.h>
 #include <TlHelp32.h>
@@ -11,7 +11,7 @@ using std::string;
 class Memory
 {
 public:
-    int GetProcessId(char* processName);
+	int GetProcessId(char* processName);
     int GetModuleBase(HANDLE processHandle, string &sModuleName);
     BOOL SetPrivilege(HANDLE hToken, LPCTSTR lpszPrivilege, BOOL bEnablePrivilege);
     BOOL GetDebugPrivileges(void);
