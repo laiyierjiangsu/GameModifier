@@ -149,6 +149,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 							   stTestMem.Change();
 		}
 			break;
+		case ID_HELP_TESTJUMP:
+		{
+								 stTestMem.TestJump();
+			break;
+		}
 		case IDM_EXIT:
 			DestroyWindow(hWnd);
 			break;
