@@ -1,26 +1,42 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameModifier", "GameModifier.vcxproj", "{5EF163EE-31E7-4F19-B9A6-CC2735004933}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CrackMe", "CrackMe\CrackMe.vcxproj", "{7ED165FC-3846-4FF6-9E41-E760257B4C65}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleCrakeMe", "ConsoleCrakeMe\ConsoleCrakeMe.vcxproj", "{A241EE6A-ED09-445A-981C-607378CFC28A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
 		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5EF163EE-31E7-4F19-B9A6-CC2735004933}.Debug|Win32.ActiveCfg = Debug|Win32
 		{5EF163EE-31E7-4F19-B9A6-CC2735004933}.Debug|Win32.Build.0 = Debug|Win32
+		{5EF163EE-31E7-4F19-B9A6-CC2735004933}.Debug|x64.ActiveCfg = Debug|Win32
 		{5EF163EE-31E7-4F19-B9A6-CC2735004933}.Release|Win32.ActiveCfg = Release|Win32
 		{5EF163EE-31E7-4F19-B9A6-CC2735004933}.Release|Win32.Build.0 = Release|Win32
+		{5EF163EE-31E7-4F19-B9A6-CC2735004933}.Release|x64.ActiveCfg = Release|Win32
 		{7ED165FC-3846-4FF6-9E41-E760257B4C65}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7ED165FC-3846-4FF6-9E41-E760257B4C65}.Debug|Win32.Build.0 = Debug|Win32
+		{7ED165FC-3846-4FF6-9E41-E760257B4C65}.Debug|x64.ActiveCfg = Debug|Win32
 		{7ED165FC-3846-4FF6-9E41-E760257B4C65}.Release|Win32.ActiveCfg = Release|Win32
 		{7ED165FC-3846-4FF6-9E41-E760257B4C65}.Release|Win32.Build.0 = Release|Win32
+		{7ED165FC-3846-4FF6-9E41-E760257B4C65}.Release|x64.ActiveCfg = Release|Win32
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Debug|Win32.Build.0 = Debug|Win32
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Debug|x64.ActiveCfg = Debug|x64
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Debug|x64.Build.0 = Debug|x64
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Release|Win32.ActiveCfg = Release|Win32
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Release|Win32.Build.0 = Release|Win32
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Release|x64.ActiveCfg = Release|x64
+		{A241EE6A-ED09-445A-981C-607378CFC28A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
