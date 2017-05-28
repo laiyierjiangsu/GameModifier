@@ -16,6 +16,12 @@
     <Filter Include="Apc">
       <UniqueIdentifier>{e746d8e3-35a6-4013-9cdf-16593e16d9a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BlookHook">
+      <UniqueIdentifier>{0aff0810-4d84-4f3c-87af-2f7710d44035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DebugInject">
+      <UniqueIdentifier>{166425bb-356e-4169-b476-9b58c797c829}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -30,6 +36,9 @@
     <ClInclude Include="src\APCInject.h">
       <Filter>Apc</Filter>
     </ClInclude>
+    <ClInclude Include="src\DebugInject.h">
+      <Filter>DebugInject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -40,6 +49,9 @@
     </ClCompile>
     <ClCompile Include="src\APCInject.cpp">
       <Filter>Apc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DebugInject.cpp">
+      <Filter>DebugInject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

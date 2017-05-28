@@ -82,11 +82,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\APCInject.h" />
+    <ClInclude Include="src\DebugInject.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\APCInject.cpp" />
+    <ClCompile Include="src\DebugInject.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestHook.cpp" />
   </ItemGroup>
