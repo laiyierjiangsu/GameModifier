@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestHook", "TestHook.vcxproj", "{F6A83E4E-080F-4449-9AB5-1F94F2730AD2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExeToHook", "ExeToHook\ExeToHook.vcxproj", "{208FBB40-1845-4730-9705-375059E00B3F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InjectDll", "InjectDll\InjectDll.vcxproj", "{DB17BC85-83D0-4145-868C-4C15B4DA55AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +19,14 @@ Global
 		{F6A83E4E-080F-4449-9AB5-1F94F2730AD2}.Debug|Win32.Build.0 = Debug|Win32
 		{F6A83E4E-080F-4449-9AB5-1F94F2730AD2}.Release|Win32.ActiveCfg = Release|Win32
 		{F6A83E4E-080F-4449-9AB5-1F94F2730AD2}.Release|Win32.Build.0 = Release|Win32
+		{208FBB40-1845-4730-9705-375059E00B3F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{208FBB40-1845-4730-9705-375059E00B3F}.Debug|Win32.Build.0 = Debug|Win32
+		{208FBB40-1845-4730-9705-375059E00B3F}.Release|Win32.ActiveCfg = Release|Win32
+		{208FBB40-1845-4730-9705-375059E00B3F}.Release|Win32.Build.0 = Release|Win32
+		{DB17BC85-83D0-4145-868C-4C15B4DA55AF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DB17BC85-83D0-4145-868C-4C15B4DA55AF}.Debug|Win32.Build.0 = Debug|Win32
+		{DB17BC85-83D0-4145-868C-4C15B4DA55AF}.Release|Win32.ActiveCfg = Release|Win32
+		{DB17BC85-83D0-4145-868C-4C15B4DA55AF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
