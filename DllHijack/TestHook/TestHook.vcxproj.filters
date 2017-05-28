@@ -22,6 +22,9 @@
     <Filter Include="DebugInject">
       <UniqueIdentifier>{166425bb-356e-4169-b476-9b58c797c829}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HookInject">
+      <UniqueIdentifier>{4a5eb1be-dccb-4502-a87d-44e23ecc9562}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -39,6 +42,12 @@
     <ClInclude Include="src\DebugInject.h">
       <Filter>DebugInject</Filter>
     </ClInclude>
+    <ClInclude Include="src\BlookHook.h">
+      <Filter>BlookHook</Filter>
+    </ClInclude>
+    <ClInclude Include="src\HookInject.h">
+      <Filter>HookInject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -52,6 +61,12 @@
     </ClCompile>
     <ClCompile Include="src\DebugInject.cpp">
       <Filter>DebugInject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BlookHook.cpp">
+      <Filter>BlookHook</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HookInject.cpp">
+      <Filter>HookInject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

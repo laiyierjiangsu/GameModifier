@@ -73,7 +73,7 @@ EXPORTFUN void SetHook(DWORD  dwPid, char * szDllPath)
 	}
 
 	//遍历查询目标程序主线程ID
-	OutputDebugString("Thread32First");
+	TipBox(L"Thread32First");
 	if (Thread32First(hThreadSnap, &te32))
 	{
 		do
@@ -89,7 +89,7 @@ EXPORTFUN void SetHook(DWORD  dwPid, char * szDllPath)
 	HANDLE hFile = CreateFile("C:\\temp.temp", GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (!hFile)
 	{
-		OutputDebugString("创建临时文件失败！！");
+		TipBox(L"创建临时文件失败！！");
 	}
 	DWORD dwBytesWritten = 0;
 	WriteFile(hFile, szDllPath, strlen(szDllPath) + 1, &dwBytesWritten, NULL);

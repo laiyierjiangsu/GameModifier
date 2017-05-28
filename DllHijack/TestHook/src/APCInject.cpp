@@ -34,9 +34,10 @@ void APCInject::StartInject(std::wstring stExe, std::wstring strDll)
 		return;
 	}
 
+	int idllPathSize = m_strDllPath.size() * 2;
 	PVOID lpDllName = VirtualAllocEx(pi.hProcess,
 		NULL,
-		m_strDllPath.size(),
+		idllPathSize,
 		MEM_COMMIT,
 		PAGE_READWRITE);
 
@@ -45,7 +46,7 @@ void APCInject::StartInject(std::wstring stExe, std::wstring strDll)
 	if (lpDllName)
 	{
 		//将DLL路径写入目标进程空间
-		if (WriteProcessMemory(pi.hProcess, lpDllName, m_strDllPath.c_str(), m_strDllPath.size(), NULL))
+		if (WriteProcessMemory(pi.hProcess, lpDllName, m_strDllPath.c_str(), idllPathSize, NULL))
 		{
 			LPVOID nLoadLibrary = (LPVOID)GetProcAddress(GetModuleHandleW(L"kernel32.dll"), "LoadLibraryA");
 			//向远程APC队列插入LoadLibraryA

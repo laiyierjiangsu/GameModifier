@@ -13,4 +13,10 @@
 #include <stdio.h>
 #include <TlHelp32.h>
 
+#include <windows.h>
+#include <string>
 // TODO:  在此处引用程序需要的其他头文件
+inline void TipBox(std::wstring str)
+{
+	MessageBoxW(NULL, str.c_str(), L"Tip", MB_OK);
+}

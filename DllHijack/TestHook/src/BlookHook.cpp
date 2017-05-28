@@ -1,6 +1,6 @@
 // BlookHook.cpp : 实现文件
 
-#include "stdafx.h"
+#include "..\stdafx.h"
 #include "BlookHook.h"
 
 
@@ -13,6 +13,7 @@ LPFUN g_pfnBlookUnHook = NULL;
 
 void BlookHook::OnBlockHook()
 {
+	m_dwPID = GetCurrentProcessId();
 	// TODO:  在此添加控件通知处理程序代码
 	g_hBlookDll = LoadLibrary(L"BlockHook.dll");
 
@@ -23,7 +24,7 @@ void BlookHook::OnBlockHook()
 	}
 	else
 	{
-		MessageBox("加载DLL失败！");
+		TipBox(L"加载DLL失败！");
 		return;
 	}
 
@@ -35,7 +36,7 @@ void BlookHook::OnBlockHook()
 	}
 	else
 	{
-		MessageBox("安装钩子失败！");
+		TipBox(L"安装钩子失败！");
 		return;
 	}
 
