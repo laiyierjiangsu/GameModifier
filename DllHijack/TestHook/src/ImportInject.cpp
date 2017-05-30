@@ -1,44 +1,11 @@
 // ImportInject.cpp : 实现文件
 //
 
-#include "stdafx.h"
-#include "MyInjectTool.h"
 #include "ImportInject.h"
-#include "afxdialogex.h"
 #include "PEFuncs.h"
 #include <IMAGEHLP.H>
 // ImportInject 对话框
 
-IMPLEMENT_DYNAMIC(ImportInject, CDialogEx)
-
-ImportInject::ImportInject(CWnd* pParent /*=NULL*/)
-	: CDialogEx(ImportInject::IDD, pParent)
-	, m_strFile(_T(""))
-	, m_strDll(_T(""))
-	, m_strFun(_T(""))
-{
-
-}
-
-ImportInject::~ImportInject()
-{
-}
-
-void ImportInject::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_EDIT1, m_strFile);
-	DDX_Text(pDX, IDC_EDIT2, m_strDll);
-	DDX_Text(pDX, IDC_EDIT3, m_strFun);
-	DDX_Control(pDX, IDC_LIST1, m_strFunList);
-}
-
-
-BEGIN_MESSAGE_MAP(ImportInject, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON1, &ImportInject::OnBnClickedButton1)
-	ON_BN_CLICKED(IDC_BUTTON2, &ImportInject::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &ImportInject::OnBnClickedButton3)
-END_MESSAGE_MAP()
 
 
 // ImportInject 消息处理程序
@@ -62,64 +29,57 @@ DWORD ClacAlignment(DWORD dwSize, DWORD dwAlign)
 	}
 }
 
-void ImportInject::OnBnClickedButton1()
+void ImportInject::OnBnClickedButton1(std::wstring peFile)
 {
+	m_strFile = peFile;
 	// TODO:  在此添加控件通知处理程序代码
 	BOOL bRet = FALSE;
-	// TODO: Add your control notification handler code here
-	char szFilter[] = "可执行文件|*.exe";
-	CFileDialog fileDlg(TRUE, "exe", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter);
-
 	char szExePath[MAX_PATH] = { 0 };
 	char *szExe = "Temp.exe";
-	GetModuleFileName(NULL, szExePath, MAX_PATH);
+	GetModuleFileNameA(NULL, szExePath, MAX_PATH);
 	(strrchr(szExePath, '\\'))[1] = 0;
 	strcat(szExePath, szExe);
 
-	m_strTempPath = szExePath;
-	if (fileDlg.DoModal() == IDOK)
-	{
-		m_strFile = fileDlg.GetPathName();
-	}
+	m_strTempPath = string2Wstring(szExePath);
+	
 
 	//复制一份文件用于修改，源文件保留。
-	bRet = ::CopyFile(m_strFile.GetBuffer(0), m_strTempPath.GetBuffer(0), FALSE);
+	bRet = ::CopyFile(m_strFile.c_str(), m_strTempPath.c_str(), FALSE);
 
 	if (bRet == 0)
 	{
-		MessageBox("复制文件失败");
+		TipBox("复制文件失败");
 	}
 
-	LoadFileR(m_strFile.GetBuffer(0), &theApp.m_stMapFile);
+	std::string filePath = wstring2string(m_strFile);
+	LoadFileR((LPTSTR)filePath.c_str(), &m_stMapFile);
 
 
 
-	if (!IsPEFile(theApp.m_stMapFile.ImageBase))
+	if (!IsPEFile(m_stMapFile.ImageBase))
 	{
-		::MessageBox(m_hWnd, "不是有效的PE文件", "不是有效的PE文件", MB_OK);
-		UnLoadFile(&theApp.m_stMapFile);
+		::MessageBoxA(nullptr, "不是有效的PE文件", "不是有效的PE文件", MB_OK);
+		UnLoadFile(&m_stMapFile);
 		//EnableEditCtrl(hWnd, FALSE);
 		return;
 	}
 
 
-	UpdateData(FALSE);
+
 }
 
 
 void ImportInject::OnBnClickedButton2()
 {
-	// TODO:  在此添加控件通知处理程序代码
-	UpdateData(TRUE);
 
-	if (m_strFun.GetLength() == 0)
+	if (m_strFun.empty())
 	{
-		MessageBox("请输入DLL函数名");
+		TipBox("请输入DLL函数名");
 		return;
 	}
 	static int nIndex = 0;
-	m_strFunList.InsertItem(nIndex, m_strFun);
-	m_strFun.Empty();
+	//m_strFunList.InsertItem(nIndex, m_strFun);
+	//m_strFun.Empty();
 	nIndex++;
 }
 
@@ -127,7 +87,6 @@ void ImportInject::OnBnClickedButton2()
 void ImportInject::OnBnClickedButton3()
 {
 	// TODO:  在此添加控件通知处理程序代码
-	UpdateData(FALSE);
 	// TODO: Add your control notification handler code here
 	FILE* fp;
 	//最后一个节
@@ -152,7 +111,7 @@ void ImportInject::OnBnClickedButton3()
 	//DLL名称的长度
 	int nDllLen = 0;
 	//需要写入的函数数目
-	int nFunNum = m_strFunList.GetItemCount();
+	int nFunNum = m_strFunList.size();
 	//相对于新节的文件偏移
 	DWORD dwNewOffset = 0;
 	//要添加的节表头
@@ -163,23 +122,23 @@ void ImportInject::OnBnClickedButton3()
 	//计算新节头的文件偏移
 	DWORD dwNewSectionOffset;
 
-
-	fp = ::fopen(m_strTempPath.GetBuffer(0), "rb+");
+	std::string filePath = wstring2string(m_strTempPath);
+	fp = ::fopen(filePath.c_str(), "rb+");
 	if (fp == NULL)
 	{
-		::DeleteFile(m_strTempPath.GetBuffer(0));
-		MessageBox("打开临时文件失败！！");
+		::DeleteFileA(filePath.c_str());
+		TipBox("打开临时文件失败！！");
 		return;
 	}
 
-	lpFirstSectionHeader = GetFirstSectionHeader(theApp.m_stMapFile.ImageBase);
-	lpNtHeader = GetNtHeaders(theApp.m_stMapFile.ImageBase);
+	lpFirstSectionHeader = GetFirstSectionHeader(m_stMapFile.ImageBase);
+	lpNtHeader = GetNtHeaders(m_stMapFile.ImageBase);
 	nSectionNum = lpNtHeader->FileHeader.NumberOfSections;
 	nSectionAlignment = lpNtHeader->OptionalHeader.SectionAlignment;
 	nFileAlignment = lpNtHeader->OptionalHeader.FileAlignment;
 
 	//获取导入表的指针
-	lpImport = (PIMAGE_IMPORT_DESCRIPTOR)ImageDirectoryEntryToData(theApp.m_stMapFile.ImageBase, FALSE, IMAGE_DIRECTORY_ENTRY_IMPORT, &dwImportSize);
+	lpImport = (PIMAGE_IMPORT_DESCRIPTOR)ImageDirectoryEntryToData(m_stMapFile.ImageBase, FALSE, IMAGE_DIRECTORY_ENTRY_IMPORT, &dwImportSize);
 	//计算新的导入表的大小:旧的导入表大小 + 新的导入表大小
 	dwNewImportSize = dwImportSize + sizeof(IMAGE_IMPORT_DESCRIPTOR);
 	//获取最后一个节头
@@ -193,8 +152,8 @@ void ImportInject::OnBnClickedButton3()
 
 	//1.在复制的文件中写入DLL名
 	fseek(fp, dwNewFA, SEEK_SET);
-	dwNewOffset = m_strDll.GetLength() + 1;
-	fwrite(m_strDll.GetBuffer(0), dwNewOffset, 1, fp);
+	dwNewOffset = m_strDll.length() + 1;
+	fwrite(m_strDll.c_str(), dwNewOffset, 1, fp);
 
 	DWORD *arrINTRva = new DWORD[nFunNum + 1];
 	memset(arrINTRva, 0, sizeof(DWORD)*(nFunNum + 1));
@@ -207,14 +166,14 @@ void ImportInject::OnBnClickedButton3()
 		static int nFunLen = 0;
 		PIMAGE_IMPORT_BY_NAME pImportFun = new IMAGE_IMPORT_BY_NAME;
 		pImportFun->Hint = i;
-		CString strFunName = m_strFunList.GetItemText(i, 0);
+		std::string strFunName = m_strFunList[i];
 		fseek(fp, dwNewFA + dwNewOffset, SEEK_SET);
 		//计算IMAGE_IMPORT_BY_NAME的RVA存入数组
 		dwTempRva = dwNewSectionRVA + dwNewOffset;
 		arrINTRva[i] = dwTempRva;
-		dwNewOffset = dwNewOffset + strFunName.GetLength() + 1 + sizeof(WORD);
-		memcpy(pImportFun->Name, strFunName.GetBuffer(0), strFunName.GetLength() + 1);
-		fwrite(pImportFun, strFunName.GetLength() + 1 + sizeof(WORD), 1, fp);
+		dwNewOffset = dwNewOffset + strFunName.length() + 1 + sizeof(WORD);
+		memcpy(pImportFun->Name, strFunName.c_str(), strFunName.length() + 1);
+		fwrite(pImportFun, strFunName.length() + 1 + sizeof(WORD), 1, fp);
 
 
 	}
@@ -278,13 +237,13 @@ void ImportInject::OnBnClickedButton3()
 
 	//计算新节头的文件偏移
 	dwNewSectionOffset = (DWORD)lpFirstSectionHeader -
-		(DWORD)theApp.m_stMapFile.ImageBase + sizeof(IMAGE_SECTION_HEADER)*nSectionNum;
+		(DWORD)m_stMapFile.ImageBase + sizeof(IMAGE_SECTION_HEADER)*nSectionNum;
 	fseek(fp, dwNewSectionOffset, 0);
 
 	//写入节表头
 	fwrite(&ImgNewSection, sizeof(IMAGE_SECTION_HEADER), 1, fp);
 	memcpy(&ImgNewSection, lpFirstSectionHeader, sizeof(IMAGE_SECTION_HEADER));
-	fseek(fp, (DWORD)lpFirstSectionHeader - (DWORD)theApp.m_stMapFile.ImageBase, SEEK_SET);
+	fseek(fp, (DWORD)lpFirstSectionHeader - (DWORD)m_stMapFile.ImageBase, SEEK_SET);
 	fwrite(&ImgNewSection, sizeof(IMAGE_SECTION_HEADER), 1, fp);
 
 	//6.更新NT头数据
@@ -300,14 +259,14 @@ void ImportInject::OnBnClickedButton3()
 	lpNewNtHeader->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].Size = dwNewImportSize;
 
 	//写入新的NT头
-	fseek(fp, (DWORD)(lpNtHeader)-(DWORD)theApp.m_stMapFile.ImageBase, SEEK_SET);
+	fseek(fp, (DWORD)(lpNtHeader)-(DWORD)m_stMapFile.ImageBase, SEEK_SET);
 	fwrite(lpNewNtHeader, sizeof(IMAGE_NT_HEADERS), 1, fp);
 
 	if (fp != NULL)
 	{
 		fclose(fp);
 	}
-	UnLoadFile(&theApp.m_stMapFile);
+	UnLoadFile(&m_stMapFile);
 
 	//释放扫尾工作
 

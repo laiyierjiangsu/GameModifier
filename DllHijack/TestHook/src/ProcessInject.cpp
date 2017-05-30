@@ -1,10 +1,8 @@
 // ProcessInject.cpp : 实现文件
 //
 
-#include "stdafx.h"
-#include "MyInjectTool.h"
+
 #include "ProcessInject.h"
-#include "afxdialogex.h"
 
 //ShellCode结构体
 //结构必须字节对齐1
@@ -29,44 +27,15 @@ typedef struct _INJECT_CODE
 #pragma pack()  
 
 
-// ProcessInject 对话框
-
-IMPLEMENT_DYNAMIC(ProcessInject, CDialogEx)
-
-ProcessInject::ProcessInject(CWnd* pParent /*=NULL*/)
-	: CDialogEx(ProcessInject::IDD, pParent)
-	, m_strExePath(_T(""))
-	, m_strDllPath(_T(""))
-{
-
-}
-
-ProcessInject::~ProcessInject()
-{
-}
-
-void ProcessInject::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_EDIT1, m_strExePath);
-	DDX_Text(pDX, IDC_EDIT2, m_strDllPath);
-}
-
-
-BEGIN_MESSAGE_MAP(ProcessInject, CDialogEx)
-	ON_BN_CLICKED(IDC_INJECT, &ProcessInject::OnBnClickedInject)
-	ON_BN_CLICKED(IDC_FREEMEM, &ProcessInject::OnBnClickedFreemem)
-	ON_BN_CLICKED(IDC_BUTTON3, &ProcessInject::OnBnClickedButton3)
-	ON_BN_CLICKED(IDC_BUTTON4, &ProcessInject::OnBnClickedButton4)
-END_MESSAGE_MAP()
-
 
 // ProcessInject 消息处理程序
 
 HANDLE g_hProcess1 = NULL;
 LPVOID g_lpBuffer1 = NULL;
-void ProcessInject::OnBnClickedInject()
+void ProcessInject::OnBnClickedInject(std::string exePath,std::string dllPath)
 {
+	m_strExePath = exePath;
+	m_strDllPath = dllPath;
 	// TODO:  在此添加控件通知处理程序代码
 	// TODO:  在此添加控件通知处理程序代码
 	BOOL bRet = FALSE;
@@ -80,12 +49,13 @@ void ProcessInject::OnBnClickedInject()
 	si.cb = sizeof(PROCESS_INFORMATION);
 	HANDLE hThread = NULL;
 	//以挂起的方式创建进程
-	bRet = CreateProcess(m_strExePath.GetBuffer(0), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED,
+	std::wstring path = string2Wstring(m_strExePath);
+	bRet = CreateProcess(path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED,
 		NULL, NULL, &si, &pi);
 
 	if (!bRet)
 	{
-		MessageBox("CreateProcess 失败");
+		TipBox("CreateProcess 失败");
 		return;
 	}
 
@@ -96,7 +66,7 @@ void ProcessInject::OnBnClickedInject()
 
 	if (g_lpBuffer1 == NULL)
 	{
-		MessageBox("VirtualAllocEx 失败");
+		TipBox("VirtualAllocEx 失败");
 		return;
 	}
 
@@ -114,13 +84,13 @@ void ProcessInject::OnBnClickedInject()
 	ic.byPOPAD = 0x61;
 	ic.byPOPFD = 0x9D;
 	ic.byRETN = 0xC3;
-	memcpy(ic.szDllPath, m_strDllPath.GetBuffer(0), m_strDllPath.GetLength());
+	memcpy(ic.szDllPath, m_strDllPath.c_str(), m_strDllPath.length());
 
 	//写入ShellCode
 	bRet = WriteProcessMemory(g_hProcess1, g_lpBuffer1, &ic, sizeof(ic), NULL);
 	if (!bRet)
 	{
-		MessageBox("写入内存失败");
+		TipBox("写入内存失败");
 		return;
 	}
 
@@ -129,7 +99,7 @@ void ProcessInject::OnBnClickedInject()
 	bRet = GetThreadContext(hThread, &oldContext);
 	if (!bRet)
 	{
-		MessageBox("GetThreadContext 失败");
+		TipBox("GetThreadContext 失败");
 		return;
 	}
 	newContext = oldContext;
@@ -149,7 +119,7 @@ void ProcessInject::OnBnClickedInject()
 	bRet = WriteProcessMemory(g_hProcess1, ((char*)g_lpBuffer1) + 1, &dwOldEip, sizeof(DWORD), NULL);
 	if (!bRet)
 	{
-		MessageBox("写入内存失败");
+		TipBox("写入内存失败");
 		return;
 	}
 
@@ -157,7 +127,7 @@ void ProcessInject::OnBnClickedInject()
 
 	if (!bRet)
 	{
-		MessageBox("SetThreadContext 失败");
+		TipBox("SetThreadContext 失败");
 		return;
 	}
 
@@ -166,7 +136,7 @@ void ProcessInject::OnBnClickedInject()
 
 	if (bRet == -1)
 	{
-		MessageBox("ResumeThread 失败");
+		TipBox("ResumeThread 失败");
 		return;
 	}
 }
@@ -193,7 +163,7 @@ void ProcessInject::OnBnClickedButton3()
 	UpdateData(TRUE);
 	if (fileDlg.DoModal() == IDOK)
 	{
-		m_strExePath = fileDlg.GetPathName();
+		
 	}
 	UpdateData(FALSE);
 }

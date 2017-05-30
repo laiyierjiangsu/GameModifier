@@ -1,10 +1,7 @@
 // Hijack.cpp : 实现文件
 //
-
-#include "stdafx.h"
-#include "MyInjectTool.h"
 #include "Hijack.h"
-#include "afxdialogex.h"
+
 
 CHAR *g_pszHeader = "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n"
 "// 头文件\r\n"
@@ -81,35 +78,13 @@ CHAR *g_pszFun = "//////////////////////////////////////////////////////////////
 "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n\r\n\r\n\r\n\r\n";
 // Hijack 对话框
 
-IMPLEMENT_DYNAMIC(Hijack, CDialogEx)
-
-Hijack::Hijack(CWnd* pParent /*=NULL*/)
-	: CDialogEx(Hijack::IDD, pParent)
-{
-
-}
-
-Hijack::~Hijack()
-{
-}
-
-void Hijack::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_LIST1, m_mylist);
-}
 
 
-BEGIN_MESSAGE_MAP(Hijack, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON1, &Hijack::OnBnClickedButton1)
-	ON_WM_DROPFILES()
-END_MESSAGE_MAP()
 
 
 // Hijack 消息处理程序
-
 CHAR * g_pszMyCode = "D:\\MyDll.c";
-void Hijack::OnBnClickedButton1()
+void Hijack::StartHijack()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	HANDLE hCFile = NULL;
@@ -120,14 +95,14 @@ void Hijack::OnBnClickedButton1()
 
 	if (hCFile == INVALID_HANDLE_VALUE)
 	{
-		MessageBox("创建文件失败");
+		TipBox("创建文件失败");
 		return;
 	}
 
 	//写入头部
 	if (!WriteFile(hCFile, g_pszHeader, strlen(g_pszHeader), &dwWritten, NULL))
 	{
-		MessageBox("写入文件失败");
+		TipBox("写入文件失败");
 		CloseHandle(hCFile);
 		return;
 	}
@@ -158,7 +133,7 @@ void Hijack::OnBnClickedButton1()
 	//继续写入
 	if (!WriteFile(hCFile, szTemp, strlen(szTemp), &dwWritten, NULL))
 	{
-		MessageBox("写入文件失败");
+		TipBox("写入文件失败");
 		CloseHandle(hCFile);
 		return;
 	}
@@ -174,7 +149,7 @@ void Hijack::OnBnClickedButton1()
 		//写入#pragma comment部分
 		if (!WriteFile(hCFile, szTemp, strlen(g_pszFun), &dwWritten, NULL))
 		{
-			MessageBox("写入文件失败");
+			TipBox("写入文件失败");
 			CloseHandle(hCFile);
 			return;
 		}
@@ -184,7 +159,7 @@ void Hijack::OnBnClickedButton1()
 	CloseHandle(hCFile);
 	ZeroMemory(szTemp, 10000);
 	sprintf(szTemp, "源码生成成功：所在路径为%s", g_pszMyCode);
-	MessageBox(szTemp);
+	TipBox(szTemp);
 }
 
 
@@ -315,7 +290,7 @@ BOOL Hijack::GetAndShowExports()
 
 BOOL Hijack::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+
 
 	// TODO:  在此添加额外的初始化
 	m_mylist.InsertColumn(0, "Ordinal", LVCFMT_LEFT, 200);

@@ -51,7 +51,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -84,7 +84,14 @@
     <ClInclude Include="src\APCInject.h" />
     <ClInclude Include="src\BlookHook.h" />
     <ClInclude Include="src\DebugInject.h" />
+    <ClInclude Include="src\Hijack.h" />
     <ClInclude Include="src\HookInject.h" />
+    <ClInclude Include="src\ImportInject.h" />
+    <ClInclude Include="src\InputInject.h" />
+    <ClInclude Include="src\ProcessInject.h" />
+    <ClInclude Include="src\RegInject.h" />
+    <ClInclude Include="src\RemoteInject.h" />
+    <ClInclude Include="src\ThreadInject.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -92,7 +99,14 @@
     <ClCompile Include="src\APCInject.cpp" />
     <ClCompile Include="src\BlookHook.cpp" />
     <ClCompile Include="src\DebugInject.cpp" />
+    <ClCompile Include="src\Hijack.cpp" />
     <ClCompile Include="src\HookInject.cpp" />
+    <ClCompile Include="src\ImportInject.cpp" />
+    <ClCompile Include="src\InputInject.cpp" />
+    <ClCompile Include="src\ProcessInject.cpp" />
+    <ClCompile Include="src\RegInject.cpp" />
+    <ClCompile Include="src\RemoteInject.cpp" />
+    <ClCompile Include="src\ThreadInject.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TestHook.cpp" />
   </ItemGroup>

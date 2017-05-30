@@ -1,31 +1,24 @@
 #pragma once
-#include "afxcmn.h"
-
-
+#include "..\stdafx.h"
+#include <vector>
 // ImportInject 对话框
-
-class ImportInject : public CDialogEx
+#include "PEFuncs.h"
+class ImportInject 
 {
-	DECLARE_DYNAMIC(ImportInject)
-
 public:
-	ImportInject(CWnd* pParent = NULL);   // 标准构造函数
-	virtual ~ImportInject();
+	std::wstring m_strFile;
+	std::string m_strDll;
+	std::wstring m_strFun;
+	std::wstring m_strTempPath;
 
-// 对话框数据
-	enum { IDD = IDD_DIALOG1 };
+	std::vector<PIMAGE_SECTION_HEADER> vct_SectionHeader;//保存节表信息
+	MAP_FILE_STRUCT m_stMapFile;
+	PIMAGE_DOS_HEADER m_pDosHeader;
+	PIMAGE_NT_HEADERS m_pNtHeader;
 
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
-	DECLARE_MESSAGE_MAP()
-public:
-	CString m_strFile;
-	CString m_strDll;
-	CString m_strFun;
-	CString m_strTempPath;
-	afx_msg void OnBnClickedButton1();
-	afx_msg void OnBnClickedButton2();
-	CListCtrl m_strFunList;
-	afx_msg void OnBnClickedButton3();
+	void OnBnClickedButton1(std::wstring peFile);
+	void OnBnClickedButton2();
+	std::vector<std::string> m_strFunList;
+	void OnBnClickedButton3();
 };
