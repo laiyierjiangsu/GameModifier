@@ -9,7 +9,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	static int iTestType = 3;
+	static int iTestType = 0;
 	switch (iTestType)
 	{
 	case 0:
