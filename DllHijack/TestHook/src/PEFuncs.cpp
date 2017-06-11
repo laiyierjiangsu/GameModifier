@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "PEFuncs.h"
 
 #include <imagehlp.h>

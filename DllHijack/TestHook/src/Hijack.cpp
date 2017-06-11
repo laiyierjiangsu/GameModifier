@@ -91,7 +91,7 @@ void Hijack::StartHijack()
 	DWORD dwWritten = 0;
 	CHAR szTemp[10000] = { 0 };
 
-	hCFile = CreateFile(g_pszMyCode, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	hCFile = CreateFileA(g_pszMyCode, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
 	if (hCFile == INVALID_HANDLE_VALUE)
 	{
@@ -109,18 +109,19 @@ void Hijack::StartHijack()
 
 	//写入#pragma comment部分
 	// 输出所有元素
-	DWORD dwIndex = 1;
-	for (POSITION pos = m_FunNameList.GetHeadPosition(); pos != NULL;)
+	std::list<std::string>::iterator iter = m_FunNameList.begin();
+	DWORD dwIndex = 0;
+	for (; iter != m_FunNameList.end();iter++)
 	{
 		ZeroMemory(szTemp, 10000);
-		CString str = m_FunNameList.GetNext(pos);
-		sprintf(szTemp, "#pragma comment(linker, \"/EXPORT:%s=_My_%s,@%d\")\r\n", str.GetBuffer(0), str.GetBuffer(0), dwIndex);
+		std::string str = *iter;
+		sprintf(szTemp, "#pragma comment(linker, \"/EXPORT:%s=_My_%s,@%d\")\r\n", str.c_str(), str.c_str(), dwIndex);
 		dwIndex++;
 
 		//写入#pragma comment部分
 		if (!WriteFile(hCFile, szTemp, strlen(szTemp), &dwWritten, NULL))
 		{
-			MessageBox("写入文件失败");
+			TipBox("写入文件失败");
 			CloseHandle(hCFile);
 			return;
 		}
@@ -139,11 +140,12 @@ void Hijack::StartHijack()
 	}
 
 	DWORD dwCount = 1;
-	for (POSITION pos = m_FunNameList.GetHeadPosition(); pos != NULL;)
+	iter = m_FunNameList.begin();
+	for (; iter != m_FunNameList.end();iter++)
 	{
-		CString str = m_FunNameList.GetNext(pos);
+		std::string str = *iter;
 		ZeroMemory(szTemp, 10000);
-		sprintf(szTemp, g_pszFun, dwCount, str.GetBuffer(0), str.GetBuffer(0), dwCount, dwCount);
+		sprintf(szTemp, g_pszFun, dwCount, str.c_str(), str.c_str(), dwCount, dwCount);
 
 
 		//写入#pragma comment部分
@@ -165,39 +167,17 @@ void Hijack::StartHijack()
 
 void Hijack::OnDropFiles(HDROP hDropInfo)
 {
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
-	m_mylist.DeleteAllItems();
-	if (m_pstMapFile != NULL)
-	{
-		if (m_bIsFirst == FALSE)
-		{
-			UnLoadFile(m_pstMapFile);
-		}
-		else
-		{
-			m_bIsFirst = FALSE;
-		}
 
-	}
-	// TODO:  在此添加消息处理程序代码和/或调用默认值
-	int DropCount = DragQueryFile(hDropInfo, -1, NULL, 0);//取得被拖动文件的数目  
-	for (int i = 0; i< DropCount; i++)
+	LoadFileR((LPTSTR)m_strInjectFile.c_str(), m_pstMapFile);
+	if (IsPEFile(m_pstMapFile->ImageBase) == FALSE)
 	{
-		CHAR szStr[MAX_PATH];
-		DragQueryFile(hDropInfo, i, szStr, MAX_PATH);//获得拖曳的第i个文件的文件名 
-
-		LoadFileR(szStr, m_pstMapFile);
-		if (IsPEFile(m_pstMapFile->ImageBase) == FALSE)
-		{
-			UnLoadFile(m_pstMapFile);
-			MessageBox("不是有效的PE文件");
-			return;
-		}
+		UnLoadFile(m_pstMapFile);
+		TipBox("不是有效的PE文件");
+		return;
 	}
-	DragFinish(hDropInfo);  //拖放结束后,释放内存  
 
 	GetAndShowExports();
-	CDialogEx::OnDropFiles(hDropInfo);
+
 }
 
 /*******************************************************
@@ -258,22 +238,22 @@ BOOL Hijack::GetAndShowExports()
 			//show funcs to listctrl
 
 
-			wsprintf(cBuff, "%04lX", (UINT)(pExportDir->Base + i));
+			wsprintfA(cBuff, "%04lX", (UINT)(pExportDir->Base + i));
 
-			m_mylist.InsertItem(k, cBuff);
+			//m_mylist.InsertItem(k, cBuff);
 
-			wsprintf(cBuff, "%08lX", (*pdwRvas));
-			m_mylist.SetItemText(k, 1, cBuff);
+			wsprintfA(cBuff, "%08lX", (*pdwRvas));
+			//m_mylist.SetItemText(k, 1, cBuff);
 
 			if (bIsByName)
 			{
-				m_FunNameList.AddTail(szFuncName);
-				m_mylist.SetItemText(k, 2, szFuncName);
-				szFuncName == NULL;
+				//m_FunNameList.AddTail(szFuncName);
+			//	m_mylist.SetItemText(k, 2, szFuncName);
+				//szFuncName == NULL;
 			}
 			else
 			{
-				m_mylist.SetItemText(k, 2, "-");
+			//	m_mylist.SetItemText(k, 2, "-");
 			}
 
 			//
@@ -287,16 +267,3 @@ BOOL Hijack::GetAndShowExports()
 	return TRUE;
 }
 
-
-BOOL Hijack::OnInitDialog()
-{
-
-
-	// TODO:  在此添加额外的初始化
-	m_mylist.InsertColumn(0, "Ordinal", LVCFMT_LEFT, 200);
-	m_mylist.InsertColumn(1, "Rva", LVCFMT_LEFT, 200);
-	m_mylist.InsertColumn(2, "Function Name", LVCFMT_LEFT, 200);
-	m_pstMapFile = new MAP_FILE_STRUCT;
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 异常:  OCX 属性页应返回 FALSE
-}

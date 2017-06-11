@@ -88,6 +88,7 @@
     <ClInclude Include="src\HookInject.h" />
     <ClInclude Include="src\ImportInject.h" />
     <ClInclude Include="src\InputInject.h" />
+    <ClInclude Include="src\PEFuncs.h" />
     <ClInclude Include="src\ProcessInject.h" />
     <ClInclude Include="src\RegInject.h" />
     <ClInclude Include="src\RemoteInject.h" />
@@ -103,6 +104,7 @@
     <ClCompile Include="src\HookInject.cpp" />
     <ClCompile Include="src\ImportInject.cpp" />
     <ClCompile Include="src\InputInject.cpp" />
+    <ClCompile Include="src\PEFuncs.cpp" />
     <ClCompile Include="src\ProcessInject.cpp" />
     <ClCompile Include="src\RegInject.cpp" />
     <ClCompile Include="src\RemoteInject.cpp" />

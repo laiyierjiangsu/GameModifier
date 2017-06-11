@@ -6,7 +6,7 @@
 #include <IMAGEHLP.H>
 // ImportInject 对话框
 
-
+#pragma comment(lib,"Dbghelp.lib")
 
 // ImportInject 消息处理程序
 

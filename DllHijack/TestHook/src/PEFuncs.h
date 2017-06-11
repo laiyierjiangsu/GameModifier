@@ -1,6 +1,6 @@
 #ifndef _PEFUNCS_H_
 #define _PEFUNCS_H_
-
+#include <windows.h>
 
 typedef struct _MAP_FILE_STRUCT
 {

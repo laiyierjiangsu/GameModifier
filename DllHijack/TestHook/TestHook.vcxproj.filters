@@ -46,6 +46,9 @@
     <Filter Include="ThreadInject">
       <UniqueIdentifier>{3f535b50-4227-4781-a6f7-9490450840f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PEFunctions">
+      <UniqueIdentifier>{37db6455-7559-4d9e-856a-589b40b03c6e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -90,6 +93,9 @@
     <ClInclude Include="src\ThreadInject.h">
       <Filter>ThreadInject</Filter>
     </ClInclude>
+    <ClInclude Include="src\PEFuncs.h">
+      <Filter>PEFunctions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -130,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="src\ThreadInject.cpp">
       <Filter>ThreadInject</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PEFuncs.cpp">
+      <Filter>PEFunctions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

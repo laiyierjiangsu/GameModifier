@@ -147,38 +147,12 @@ void ProcessInject::OnBnClickedFreemem()
 	// TODO:  在此添加控件通知处理程序代码
 	if (!VirtualFreeEx(g_hProcess1, g_lpBuffer1, 0, MEM_RELEASE))
 	{
-		MessageBox("VirtualFreeEx 失败");
+		TipBox("VirtualFreeEx 失败");
 		return;
 	}
 
-	MessageBox("释放对方空间成功");
+	TipBox("释放对方空间成功");
 }
 
 
-void ProcessInject::OnBnClickedButton3()
-{
-	// TODO:  在此添加控件通知处理程序代码
-	char szFilter[] = "可执行程序|*.exe";
-	CFileDialog fileDlg(TRUE, "exe", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter);
-	UpdateData(TRUE);
-	if (fileDlg.DoModal() == IDOK)
-	{
-		
-	}
-	UpdateData(FALSE);
-}
 
-
-void ProcessInject::OnBnClickedButton4()
-{
-	// TODO:  在此添加控件通知处理程序代码
-	char szFilter[] = "动态链接库|*.dll";
-	CFileDialog fileDlg(TRUE, "dll", NULL, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, szFilter);
-	UpdateData(TRUE);
-	if (fileDlg.DoModal() == IDOK)
-	{
-		m_strDllPath = fileDlg.GetPathName();
-	}
-	UpdateData(FALSE);
-
-}
