@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExeToHook", "ExeToHook\ExeT
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InjectDll", "InjectDll\InjectDll.vcxproj", "{DB17BC85-83D0-4145-868C-4C15B4DA55AF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMiniHook", "TestMiniHook\TestMiniHook.vcxproj", "{58E42997-FB24-4781-8E48-2A5168C07BB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -27,6 +29,10 @@ Global
 		{DB17BC85-83D0-4145-868C-4C15B4DA55AF}.Debug|Win32.Build.0 = Debug|Win32
 		{DB17BC85-83D0-4145-868C-4C15B4DA55AF}.Release|Win32.ActiveCfg = Release|Win32
 		{DB17BC85-83D0-4145-868C-4C15B4DA55AF}.Release|Win32.Build.0 = Release|Win32
+		{58E42997-FB24-4781-8E48-2A5168C07BB3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{58E42997-FB24-4781-8E48-2A5168C07BB3}.Debug|Win32.Build.0 = Debug|Win32
+		{58E42997-FB24-4781-8E48-2A5168C07BB3}.Release|Win32.ActiveCfg = Release|Win32
+		{58E42997-FB24-4781-8E48-2A5168C07BB3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="miniHook">
+      <UniqueIdentifier>{685c0cac-c5b7-44d3-9dd8-1f6350476c64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniHook\include">
+      <UniqueIdentifier>{ff777a05-364f-480d-926c-9607a2da7527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniHook\src">
+      <UniqueIdentifier>{5ece3992-e1ec-4560-924d-57c93b93b84a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniHook\src\Hde">
+      <UniqueIdentifier>{df905712-87d4-42d8-bec9-7442c362ab6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,6 +36,30 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\hde32.h">
+      <Filter>miniHook\src\Hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\hde64.h">
+      <Filter>miniHook\src\Hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\pstdint.h">
+      <Filter>miniHook\src\Hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\table32.h">
+      <Filter>miniHook\src\Hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\table64.h">
+      <Filter>miniHook\src\Hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\buffer.h">
+      <Filter>miniHook\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\trampoline.h">
+      <Filter>miniHook\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\include\MinHook.h">
+      <Filter>miniHook\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -31,6 +67,21 @@
     </ClCompile>
     <ClCompile Include="TestMiniHook.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\hde\hde32.c">
+      <Filter>miniHook\src\Hde</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\hde\hde64.c">
+      <Filter>miniHook\src\Hde</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\buffer.c">
+      <Filter>miniHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\hook.c">
+      <Filter>miniHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\trampoline.c">
+      <Filter>miniHook\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
