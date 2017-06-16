@@ -5,10 +5,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Detector">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -25,28 +21,26 @@
     <Filter Include="MiniHook\src\hde">
       <UniqueIdentifier>{b9ad42fa-2284-4060-958e-4b1dbeb3a03f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{29fe140f-880d-43ff-a90a-36259cda0684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DetectorLogic">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="DetectorLogic\Detector">
+      <UniqueIdentifier>{83cf159d-50b0-4766-b01e-728aaf50d723}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WindowDetector.h">
-      <Filter>Detector</Filter>
-    </ClInclude>
-    <ClInclude Include="ProcessDetector.h">
-      <Filter>Detector</Filter>
-    </ClInclude>
-    <ClInclude Include="FileIntegrityDetection.h">
-      <Filter>Detector</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="DebuggerProtCleaner.h">
-      <Filter>Detector</Filter>
     </ClInclude>
     <ClInclude Include="..\MiniHook\include\MinHook.h">
       <Filter>MiniHook\include</Filter>
@@ -72,6 +66,30 @@
     <ClInclude Include="..\MiniHook\src\trampoline.h">
       <Filter>MiniHook\src</Filter>
     </ClInclude>
+    <ClInclude Include="CommonMacro.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DetectorProtal.h">
+      <Filter>DetectorLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="DebuggerProtCleaner.h">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="DllInjectDetector.h">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIntegrityDetection.h">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessDetector.h">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowDetector.h">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -79,18 +97,6 @@
     </ClCompile>
     <ClCompile Include="GameGuard.cpp">
       <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowDetector.cpp">
-      <Filter>Detector</Filter>
-    </ClCompile>
-    <ClCompile Include="ProcessDetector.cpp">
-      <Filter>Detector</Filter>
-    </ClCompile>
-    <ClCompile Include="FileIntegrityDetection.cpp">
-      <Filter>Detector</Filter>
-    </ClCompile>
-    <ClCompile Include="DebuggerProtCleaner.cpp">
-      <Filter>Detector</Filter>
     </ClCompile>
     <ClCompile Include="..\MiniHook\src\hde\hde32.c">
       <Filter>MiniHook\src\hde</Filter>
@@ -106,6 +112,24 @@
     </ClCompile>
     <ClCompile Include="..\MiniHook\src\trampoline.c">
       <Filter>MiniHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="DetectorProtal.cpp">
+      <Filter>DetectorLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="DebuggerProtCleaner.cpp">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="DllInjectDetector.cpp">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIntegrityDetection.cpp">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessDetector.cpp">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowDetector.cpp">
+      <Filter>DetectorLogic\Detector</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

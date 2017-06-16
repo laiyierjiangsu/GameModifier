@@ -1,9 +1,9 @@
 #pragma once
-class FileIntegrityDetection
+class FileIntegrityDetector
 {
 public:
-	FileIntegrityDetection();
-	~FileIntegrityDetection();
+	FileIntegrityDetector();
+	~FileIntegrityDetector();
 
 private:
 

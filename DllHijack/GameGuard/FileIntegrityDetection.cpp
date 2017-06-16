@@ -1,8 +1,8 @@
 #include "FileIntegrityDetection.h"
-FileIntegrityDetection::FileIntegrityDetection()
+FileIntegrityDetector::FileIntegrityDetector()
 {
 }
 
-FileIntegrityDetection::~FileIntegrityDetection()
+FileIntegrityDetector::~FileIntegrityDetector()
 {
 }
