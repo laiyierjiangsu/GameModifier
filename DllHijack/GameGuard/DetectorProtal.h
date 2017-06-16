@@ -1,6 +1,7 @@
 //检测线程的入口，所有逻辑都在这个里面做
 #pragma  once
 #include <thread>
+
 class DetectorPortal
 {
 public:

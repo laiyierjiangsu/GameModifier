@@ -31,6 +31,9 @@
     <Filter Include="DetectorLogic\Detector">
       <UniqueIdentifier>{83cf159d-50b0-4766-b01e-728aaf50d723}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Decoder">
+      <UniqueIdentifier>{0bd833fd-90fb-44ec-be17-2cd4e3b2db1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -90,6 +93,15 @@
     <ClInclude Include="WindowDetector.h">
       <Filter>DetectorLogic\Detector</Filter>
     </ClInclude>
+    <ClInclude Include="ImageIntegrityDetector.h">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Decoder\crc32.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Decoder\md5.h">
+      <Filter>Decoder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -130,6 +142,15 @@
     </ClCompile>
     <ClCompile Include="WindowDetector.cpp">
       <Filter>DetectorLogic\Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageIntegrityDetector.cpp">
+      <Filter>DetectorLogic\Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Decoder\md5.cpp">
+      <Filter>Decoder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Decoder\crc32.cpp">
+      <Filter>Decoder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

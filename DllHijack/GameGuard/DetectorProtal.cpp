@@ -2,6 +2,8 @@
 #include "Framework.h"
 #include <thread>
 #pragma comment(lib, "Winmm.lib")
+#include "FileIntegrityDetection.h"
+FileIntegrityDetector _gFileIntegrityDetector;
 DetectorPortal::DetectorPortal()
 {
 	iCurrTime = 0;
@@ -19,9 +21,10 @@ void DetectorPortal ::DetectProcess()
 	_detectorThreadHandle = GetCurrentThread();
 	while (true)
 	{
+		_gFileIntegrityDetector.Detect();
 		printf("Thread fun excute %d\n", i++);
 		Sleep(5000);
-		break;
+		//break;
 	}
 	printf("Detector thread has been exit!");
 	iCurrTime = timeGetTime();
