@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InjectDll", "InjectDll\Inje
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMiniHook", "TestMiniHook\TestMiniHook.vcxproj", "{58E42997-FB24-4781-8E48-2A5168C07BB3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameGuard", "..\GameGuard\GameGuard.vcxproj", "{CECB7FC3-B6C5-478D-8704-6E0FE4729233}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -33,6 +35,10 @@ Global
 		{58E42997-FB24-4781-8E48-2A5168C07BB3}.Debug|Win32.Build.0 = Debug|Win32
 		{58E42997-FB24-4781-8E48-2A5168C07BB3}.Release|Win32.ActiveCfg = Release|Win32
 		{58E42997-FB24-4781-8E48-2A5168C07BB3}.Release|Win32.Build.0 = Release|Win32
+		{CECB7FC3-B6C5-478D-8704-6E0FE4729233}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CECB7FC3-B6C5-478D-8704-6E0FE4729233}.Debug|Win32.Build.0 = Debug|Win32
+		{CECB7FC3-B6C5-478D-8704-6E0FE4729233}.Release|Win32.ActiveCfg = Release|Win32
+		{CECB7FC3-B6C5-478D-8704-6E0FE4729233}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
