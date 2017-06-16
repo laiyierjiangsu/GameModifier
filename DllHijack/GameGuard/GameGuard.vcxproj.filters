@@ -1,42 +1,111 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Detector">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="MiniHook">
+      <UniqueIdentifier>{386ce8cf-9879-4c37-93e2-21c51ee78d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MiniHook\include">
+      <UniqueIdentifier>{4e846504-61d2-4211-95d3-b77f37891518}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MiniHook\src">
+      <UniqueIdentifier>{07aaa053-e59b-40c2-be0d-a813e0fd75d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MiniHook\src\hde">
+      <UniqueIdentifier>{b9ad42fa-2284-4060-958e-4b1dbeb3a03f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="WindowDetector.h">
+      <Filter>Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessDetector.h">
+      <Filter>Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIntegrityDetection.h">
+      <Filter>Detector</Filter>
+    </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+      <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="WindowDetector.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="DebuggerProtCleaner.h">
+      <Filter>Detector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\include\MinHook.h">
+      <Filter>MiniHook\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\hde32.h">
+      <Filter>MiniHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\hde64.h">
+      <Filter>MiniHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\pstdint.h">
+      <Filter>MiniHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\table32.h">
+      <Filter>MiniHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\hde\table64.h">
+      <Filter>MiniHook\src\hde</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\buffer.h">
+      <Filter>MiniHook\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MiniHook\src\trampoline.h">
+      <Filter>MiniHook\src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="GameGuard.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="WindowDetector.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessDetector.cpp">
+      <Filter>Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIntegrityDetection.cpp">
+      <Filter>Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="DebuggerProtCleaner.cpp">
+      <Filter>Detector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\hde\hde32.c">
+      <Filter>MiniHook\src\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\hde\hde64.c">
+      <Filter>MiniHook\src\hde</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\buffer.c">
+      <Filter>MiniHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\hook.c">
+      <Filter>MiniHook\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MiniHook\src\trampoline.c">
+      <Filter>MiniHook\src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

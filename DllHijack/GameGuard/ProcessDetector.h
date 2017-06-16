@@ -1,3 +1,4 @@
+#pragma once
 class ProcessDetecory
 {
 public:
@@ -8,10 +9,3 @@ private:
 
 };
 
-ProcessDetecory::ProcessDetecory()
-{
-}
-
-ProcessDetecory::~ProcessDetecory()
-{
-}
