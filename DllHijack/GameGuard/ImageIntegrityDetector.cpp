@@ -35,8 +35,8 @@ bool ImageIntegrityDetector::ImageCodeSectionCrc32(char* pModuleName, DWORD &crc
 
 void ImageIntegrityDetector::Detect()
 {
+	CheckCodeSnipeCrc32();
 	DWORD PECrc32 = 0, ImageCrc32 = 0;
-
 	HMODULE hModule = LoadLibraryA("InjectDll.dll");
 	assert(hModule != nullptr);
 	assert(ImageCodeSectionCrc32("InjectDll.dll", ImageCrc32));
@@ -71,5 +71,24 @@ bool ImageIntegrityDetector::PEFileCodeSectionCrc32(char* pFile, DWORD& crc32)
 	::CloseHandle(hFile);
 	delete[]pBuff;
 	return true;
+}
+
+bool ImageIntegrityDetector::CheckCodeSnipeCrc32()
+{
+	DWORD addr1, addr2, size;
+	_asm mov addr1, offset codeBegin;
+	_asm mov addr2, offset codeEnd;
+	codeBegin:
+		//OutputDebugString(L"test");
+		//OutputDebugString(L"test0");
+		//OutputDebugString(L"test1");
+		int a = 0;
+		a = a + 1;
+		a = a - 1;
+	codeEnd:
+		size = addr2 - addr1;
+		DWORD curcrc32 = Crc32_ComputeBuf((void*)addr1, size);
+		DWORD oldCrc32 = 0xbcf07446;
+		assert(oldCrc32 == curcrc32);
 }
 

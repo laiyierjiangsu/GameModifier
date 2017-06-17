@@ -22,7 +22,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		//bool bLive = _globalDetector.IsLive(timeGetTime());
 		////printf("detecor is live £¿£¿ %s\n",bLive ?"true":"false" );
 		//printf("wait for hacking %d\n", i++);
-		//_globalDetector.Init();
+		_globalDetector.Init();
 		printf("Test suite pointer: %p\n", &_gTestSuite);
 		_gTestSuite.Test();
 		break;
