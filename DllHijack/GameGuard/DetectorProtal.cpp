@@ -4,8 +4,12 @@
 #pragma comment(lib, "Winmm.lib")
 #include "FileIntegrityDetection.h"
 #include "ImageIntegrityDetector.h"
+#include "WindowDetector.h"
+#include "ProcessDetector.h"
 FileIntegrityDetector _gFileIntegrityDetector;
 ImageIntegrityDetector _gImageIntegrityDetector;
+WindowDetector		_gWndDetector;
+ProcessDetector		_gProcessDetector;
 DetectorPortal::DetectorPortal()
 {
 	iCurrTime = 0;
@@ -24,8 +28,10 @@ void DetectorPortal ::DetectProcess()
 	while (true)
 	{
 		_gFileIntegrityDetector.Detect();
-		_gImageIntegrityDetector.Detect();
-		printf("Thread fun excute %d\n", i++);
+		//_gImageIntegrityDetector.Detect();
+		_gWndDetector.Detect();
+		_gProcessDetector.Detect();
+		//printf("Thread fun excute %d\n", i++);
 		Sleep(5000);
 		//break;
 	}
