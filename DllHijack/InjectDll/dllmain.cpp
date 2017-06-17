@@ -14,16 +14,16 @@ BOOL APIENTRY DllMain(HANDLE hModule,
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		MessageBoxW(NULL, L"Injectdd successfule DLL_PROCESS_ATTACH", L"Tip", MB_OK);
+		OutputDebugString("Injectdd successfule DLL_PROCESS_ATTACH\n");
 		break;
 	case DLL_THREAD_ATTACH:
-		MessageBoxW(NULL, L"Injectdd successfule DLL_THREAD_ATTACH", L"Tip", MB_OK);
+		OutputDebugString("Injectdd successfule DLL_THREAD_ATTACH\n");
 		break;
 	case DLL_THREAD_DETACH:
-		MessageBoxW(NULL, L"Injectdd successfule DLL_THREAD_DETACH", L"Tip", MB_OK);
+		OutputDebugString("Injectdd successfule DLL_THREAD_DETACH\n");
 		break;
 	case DLL_PROCESS_DETACH:
-		MessageBoxW(NULL, L"Injectdd successfule DLL_PROCESS_DETACH", L"Tip", MB_OK);
+		OutputDebugString("Injectdd successfule DLL_PROCESS_DETACH\n");
 		break;
 	}
 	return TRUE;
