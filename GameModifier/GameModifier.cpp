@@ -2,10 +2,10 @@
 //
 
 #include "stdafx.h"
-#include "src/APCInject.h"
-#include "src/DebugInject.h"
-#include "src/BlookHook.h"
-#include "src/HookInject.h"
+#include "APCInject.h"
+#include "DebugInject.h"
+#include "BlookHook.h"
+#include "HookInject.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
 

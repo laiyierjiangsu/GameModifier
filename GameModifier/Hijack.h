@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "..\stdafx.h"
+#include "stdafx.h"
 // Hijack ¶Ô»°¿ò
 #include "PEFuncs.h"
 class Hijack

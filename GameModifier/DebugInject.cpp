@@ -1,7 +1,7 @@
 // DebugInject.cpp : 实现文件
 //
 
-#include "..\stdafx.h"
+#include "stdafx.h"
 #include "DebugInject.h"
 
 //结构必须字节对齐!  

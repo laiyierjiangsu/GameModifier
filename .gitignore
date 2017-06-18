@@ -27,3 +27,7 @@
 *.exe
 *.out
 *.app
+#temp
+*.user
+Debug\
+ipch\
