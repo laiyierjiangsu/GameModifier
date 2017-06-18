@@ -2,7 +2,9 @@ GameModifier
 ==========
 A simple game editor which can edit game by modify memory、inject dll。
 Hook
-Work: debug hook ok
+Work: debughook、Remoteinject
+Bad: apc、thread、process、
+Need test: ime, reg
 
 
 InjectedDll
@@ -18,10 +20,14 @@ BlackBone
 https://github.com/DarthTon/Blackbone.git
 An excellent project used for Windows memory hacking library
 
+Tamper Aware and Self Healing Code
+=====================
+Detect modification
+https://www.codeproject.com/Articles/18961/Tamper-Aware-and-Self-Healing-Code
 
 Todo list
 ==========
-1、How to detect memory modification???（cheat engine）
+1、How to detect writeprocessmemory?
 2、PE file check doesn't work?
 3、Clear the debug port?
 4、Get the callstack of parent function?
