@@ -6,9 +6,10 @@
 class ProcessInject 
 {
 public:
+	void OnStartInject(std::string exePath, std::string dllPath);
+	 void OnReleaseInject();
+private:
 	std::string m_strExePath;
 	std::string m_strDllPath;
-	void OnBnClickedInject(std::string exePath, std::string dllPath);
-	 void OnBnClickedFreemem();
 
 };

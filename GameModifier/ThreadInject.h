@@ -6,10 +6,12 @@
 class ThreadInject 
 {
 public:
+	void StartInject(std::wstring stExe, std::wstring strDll);
+	void OnReleaseInject();
+private:
 	// ½ø³ÌID
 	DWORD m_dwPid;
-	std::string m_strDllPath;
-	void OnBnClickedButton2();
-	void OnBnClickedButton3(std::string path);
-	void OnBnClickedButton4();
+	std::wstring m_strDllPath;
+	std::wstring m_strExePath;
+
 };

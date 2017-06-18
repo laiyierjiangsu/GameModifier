@@ -3,7 +3,9 @@
 
 
 #include "ProcessInject.h"
-
+#include "include/Utils.h"
+#include <io.h>
+#include <assert.h>
 //ShellCode结构体
 //结构必须字节对齐1
 #pragma pack(1)  
@@ -32,10 +34,14 @@ typedef struct _INJECT_CODE
 
 HANDLE g_hProcess1 = NULL;
 LPVOID g_lpBuffer1 = NULL;
-void ProcessInject::OnBnClickedInject(std::string exePath,std::string dllPath)
+void ProcessInject::OnStartInject(std::string exePath,std::string dllPath)
 {
 	m_strExePath = exePath;
-	m_strDllPath = dllPath;
+	CHAR szPath[MAX_PATH] = { 0 };
+	GetCurrentDirectoryA(MAX_PATH, szPath);
+	m_strDllPath = szPath + std::string("\\") + dllPath;
+	assert(_access(m_strDllPath.c_str(), 0) == 0);
+
 	// TODO:  在此添加控件通知处理程序代码
 	// TODO:  在此添加控件通知处理程序代码
 	BOOL bRet = FALSE;
@@ -45,11 +51,11 @@ void ProcessInject::OnBnClickedInject(std::string exePath,std::string dllPath)
 	CONTEXT newContext = { 0 };
 	INJECT_CODE ic = { 0 };
 	DWORD dwOldEip = 0;
-	si.wShowWindow = SW_SHOWDEFAULT;
+	si.wShowWindow = SW_SHOWNORMAL;
 	si.cb = sizeof(PROCESS_INFORMATION);
 	HANDLE hThread = NULL;
 	//以挂起的方式创建进程
-	std::wstring path = string2Wstring(m_strExePath);
+	std::wstring path = CharToWchar((char*)m_strExePath.c_str());
 	bRet = CreateProcess(path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED,
 		NULL, NULL, &si, &pi);
 
@@ -142,7 +148,7 @@ void ProcessInject::OnBnClickedInject(std::string exePath,std::string dllPath)
 }
 
 
-void ProcessInject::OnBnClickedFreemem()
+void ProcessInject::OnReleaseInject()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	if (!VirtualFreeEx(g_hProcess1, g_lpBuffer1, 0, MEM_RELEASE))

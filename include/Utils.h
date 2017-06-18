@@ -1,6 +1,6 @@
 #pragma  once
 #include <windows.h>
-
+#include <TlHelp32.h>
 #include <string>
 #include <stdio.h>
 inline std::string Utils_WideChar_To_Utf8(wchar_t* wc)
@@ -22,4 +22,29 @@ inline std::wstring CharToWchar(char* c)
 	m_wchar[len] = '\0';
 	std::wstring sRet = std::wstring(m_wchar);
 	return sRet;
+}
+
+inline DWORD GetProcessIdByName(std::string name)
+{
+	// 定义进程信息结构  
+	PROCESSENTRY32 pe32 = { sizeof(pe32) };
+
+	// 创建系统当前进程快照  
+	HANDLE hProcessShot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hProcessShot == INVALID_HANDLE_VALUE)
+		return FALSE;
+
+	std::wstring strWname = CharToWchar((char*)name.c_str());
+	if (Process32First(hProcessShot, &pe32))
+	{
+		do
+		{
+			if (wcscmp(pe32.szExeFile, strWname.c_str()) == 0)
+			{
+				return pe32.th32ProcessID;
+			}
+
+		} while (Process32Next(hProcessShot, &pe32));
+	}
+	return 0;
 }

@@ -2,8 +2,8 @@
 //
 
 #include "ThreadInject.h"
-
-#include <TlHelp32.h>
+#include <assert.h>
+#include "include/Utils.h"
 //777A01D5    68 78563412     push    12345678
 //777A01DA    9C              pushfd
 //777A01DB    60              pushad
@@ -40,9 +40,16 @@ typedef struct _INJECT_CODE
 
 HANDLE g_hProcess = 0;
 LPVOID g_lpBuffer = NULL;
-void ThreadInject::OnBnClickedButton3(std::string path)
+void ThreadInject::StartInject(std::wstring stExe, std::wstring strDll)
 {
-	m_strDllPath = path;
+
+	m_strExePath = stExe;
+	TCHAR szPath[MAX_PATH] = { 0 };
+	GetCurrentDirectoryW(MAX_PATH, szPath);
+	m_strDllPath = szPath + std::wstring(L"\\") + strDll;
+	assert(_waccess(m_strDllPath.c_str(), 0) == 0);
+
+	m_dwPid = GetProcessIdByName(Utils_WideChar_To_Utf8((wchar_t*)m_strExePath.c_str()));
 	// TODO:  在此添加控件通知处理程序代码
 	//打开目标进程
 	BOOL   bRet = 0;
@@ -71,7 +78,7 @@ void ThreadInject::OnBnClickedButton3(std::string path)
 		TipBox("VirtualAllocEx 失败");
 		return;
 	}
-
+	std::string dllPath = Utils_WideChar_To_Utf8((wchar_t*)m_strDllPath.c_str());
 	//给ShellCode结构体赋值
 	ic.byPUSH			= 0x68;
 	ic.dwPUSH_VALUE		= 0x12345678;
@@ -86,7 +93,7 @@ void ThreadInject::OnBnClickedButton3(std::string path)
 	ic.byPOPAD			= 0x61;
 	ic.byPOPFD			= 0x9D;
 	ic.byRETN			= 0xC3;
-	memcpy(ic.szDllPath, m_strDllPath.c_str(), m_strDllPath.length());
+	memcpy(ic.szDllPath, dllPath.c_str(), dllPath.length());
 
 	//写入ShellCode
 	bRet = WriteProcessMemory(g_hProcess, g_lpBuffer, &ic, sizeof(ic), NULL);
@@ -121,7 +128,7 @@ void ThreadInject::OnBnClickedButton3(std::string path)
 	//打开目标主线程
 	hThread = OpenThread(THREAD_ALL_ACCESS, FALSE, dwThreadId);
 
-	if (!OpenThread)
+	if (!hThread)
 	{
 		TipBox("OpenThread 失败");
 		return;
@@ -183,7 +190,7 @@ void ThreadInject::OnBnClickedButton3(std::string path)
 }
 
 
-void ThreadInject::OnBnClickedButton4()
+void ThreadInject::OnReleaseInject()
 {
 	// TODO:  在此添加控件通知处理程序代码
 	if (!VirtualFreeEx(g_hProcess, g_lpBuffer, 0, MEM_RELEASE))
