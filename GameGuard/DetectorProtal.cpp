@@ -27,7 +27,7 @@ void DetectorPortal ::DetectProcess()
 	_detectorThreadHandle = GetCurrentThread();
 	while (true)
 	{
-		_gFileIntegrityDetector.Detect();
+		//_gFileIntegrityDetector.Detect();
 		//_gImageIntegrityDetector.Detect();
 		_gWndDetector.Detect();
 		_gProcessDetector.Detect();

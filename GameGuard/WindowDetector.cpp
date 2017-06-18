@@ -50,4 +50,26 @@ void WindowDetector::RegisterWndName()
 void WindowDetector::Detect()
 {
 	CheckWnd();
+	EnumAllWnd();
+}
+BOOL CALLBACK printVisibleWindows(HWND wnd, LPARAM lParam)
+{
+	if (!IsWindowVisible(wnd))return 1;
+	int length = GetWindowTextLength(wnd);
+	if (!length)return 1;
+	length++;
+	TCHAR *buffer = new TCHAR[length];
+	GetWindowText(wnd, buffer, length);
+	wprintf(L"%d %s\n", wnd, buffer);
+	delete[] buffer;
+	return 1;
+}
+void WindowDetector::EnumAllWnd()
+{
+	DWORD dwThreadId = GetCurrentThreadId();
+	HDESK hDesktop = GetThreadDesktop(dwThreadId);
+	printf("------begin-----------\n");
+	EnumDesktopWindows(hDesktop, printVisibleWindows, 0);
+	printf("--------end--------------\n");
+	return ;	
 }

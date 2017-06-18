@@ -12,6 +12,8 @@ public:
 private:
 	void RegisterWndName();
 	void CheckWnd();
+	void EnumAllWnd();
+private:
 	WndList _wndList;
 };
 
