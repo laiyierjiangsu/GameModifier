@@ -102,6 +102,9 @@
     <ClInclude Include="src\MemoryHacking\Memory.hpp">
       <Filter>MemHack</Filter>
     </ClInclude>
+    <ClInclude Include="TestSuite\TestMemHack.h">
+      <Filter>MemHack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -147,6 +150,9 @@
       <Filter>PEFunctions</Filter>
     </ClCompile>
     <ClCompile Include="src\MemoryHacking\Memory.cpp">
+      <Filter>MemHack</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSuite\TestMemHack.cpp">
       <Filter>MemHack</Filter>
     </ClCompile>
   </ItemGroup>
