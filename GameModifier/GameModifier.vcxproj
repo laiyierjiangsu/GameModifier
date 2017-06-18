@@ -54,11 +54,12 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)Include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Include;$(SolutionDir);</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <StackReserveSize>2097152</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,9 +81,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Utils.h" />
+    <ClInclude Include="..\TestSuite\TestInjectDll.h" />
     <ClInclude Include="..\TestSuite\TestMemHack.h" />
     <ClInclude Include="APCInject.h" />
-    <ClInclude Include="BlookHook.h" />
     <ClInclude Include="DebugInject.h" />
     <ClInclude Include="Hijack.h" />
     <ClInclude Include="HookInject.h" />
@@ -98,9 +100,9 @@
     <ClInclude Include="ThreadInject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\TestSuite\TestInjectDll.cpp" />
     <ClCompile Include="..\TestSuite\TestMemHack.cpp" />
     <ClCompile Include="APCInject.cpp" />
-    <ClCompile Include="BlookHook.cpp" />
     <ClCompile Include="DebugInject.cpp" />
     <ClCompile Include="GameModifier.cpp" />
     <ClCompile Include="Hijack.cpp" />

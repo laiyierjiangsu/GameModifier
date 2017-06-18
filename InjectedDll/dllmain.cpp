@@ -3,9 +3,21 @@
 
 #define EXPORTFUN extern "C" __declspec(dllexport) 
 
+#include <Windows.h>
+
 HWND g_hWinProcess;
 HHOOK g_hHook;
 char g_szDllPath[MAX_PATH];
+
+__declspec(dllexport)LRESULT MyMessageProcess(int Code, WPARAM wParam, LPARAM lParam)
+{
+	//
+	//你自己对消息的处理
+	//
+	return CallNextHookEx(g_hHook, Code, wParam, lParam);
+}
+
+
 BOOL APIENTRY DllMain(HANDLE hModule,
 	DWORD  ul_reason_for_call,
 	LPVOID lpReserved
@@ -14,6 +26,10 @@ BOOL APIENTRY DllMain(HANDLE hModule,
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
+		//
+		//加入你想在目标进程空间HOOK的代码
+		//
+	//	MessageBoxW(NULL, L"Inject Success!", L"Message", 0);
 		OutputDebugString("Injectdd successfule DLL_PROCESS_ATTACH\n");
 		break;
 	case DLL_THREAD_ATTACH:

@@ -1,6 +1,8 @@
 GameModifier
 ==========
 A simple game editor which can edit game by modify memory、inject dll。
+Hook
+Work: debug hook ok
 
 
 InjectedDll

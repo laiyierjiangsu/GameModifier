@@ -6,10 +6,12 @@
 #include "ImageIntegrityDetector.h"
 #include "WindowDetector.h"
 #include "ProcessDetector.h"
+#include "DllInjectDetector.h"
 FileIntegrityDetector _gFileIntegrityDetector;
 ImageIntegrityDetector _gImageIntegrityDetector;
 WindowDetector		_gWndDetector;
 ProcessDetector		_gProcessDetector;
+DllInjectDetector	_gDllInjectDetector;
 DetectorPortal::DetectorPortal()
 {
 	iCurrTime = 0;
@@ -22,17 +24,17 @@ DetectorPortal::~DetectorPortal()
 
 void DetectorPortal ::DetectProcess()
 {
-	static int i = 0;
+	static int iValueToBeModified = 1020;
 	_detectorThreadId = GetCurrentThreadId();
 	_detectorThreadHandle = GetCurrentThread();
 	while (true)
 	{
 		//_gFileIntegrityDetector.Detect();
 		//_gImageIntegrityDetector.Detect();
-		_gWndDetector.Detect();
-		_gProcessDetector.Detect();
-		//printf("Thread fun excute %d\n", i++);
-		Sleep(5000);
+		//_gWndDetector.Detect();
+		//_gProcessDetector.Detect();
+		_gDllInjectDetector.Detect();
+		Sleep(10000);
 		//break;
 	}
 	printf("Detector thread has been exit!");

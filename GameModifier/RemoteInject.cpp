@@ -2,18 +2,23 @@
 //
 
 #include "RemoteInject.h"
-
-
-
-void RemoteInject::OnBnClickedInject(std::string path)
+#include <tlhelp32.h>  
+#include <assert.h>
+#include <stdio.h>
+#include <io.h>
+#include "include/Utils.h"
+void RemoteInject::StartInject(std::string stExe, std::string strDll)
 {
-	m_strDllPath = path;
-	m_dwPID = GetCurrentProcessId();
+	char szPath[MAX_PATH] = { 0 };
+	GetCurrentDirectoryA(MAX_PATH, szPath);
+	m_strDllPath = szPath + std::string("\\") + strDll;
+	assert(_access(m_strDllPath.c_str(), 0) == 0);
+
+	m_dwPID = GetProcessIdByName(stExe);
 	// TODO:  在此添加控件通知处理程序代码
 	HANDLE hProcess = NULL;
 	HANDLE hThread = NULL;
 	HANDLE hThread2 = NULL;
-	char* pszRemoteBuffer = NULL;
 	DWORD * pDwTidRemote = NULL;
 
 
@@ -31,7 +36,9 @@ void RemoteInject::OnBnClickedInject(std::string path)
 
 
 	//1.在远程进程中分配内存
-	pszRemoteBuffer = (char *)VirtualAllocEx(hProcess, NULL, m_strDllPath.size(), MEM_COMMIT, PAGE_READWRITE);
+	BYTE* 	pszRemoteBuffer = NULL;
+	int  bufLen = m_strDllPath.size();
+	pszRemoteBuffer = (BYTE *)VirtualAllocEx(hProcess, NULL, bufLen, MEM_COMMIT, PAGE_READWRITE);
 
 	if (pszRemoteBuffer == NULL)
 	{
@@ -40,7 +47,7 @@ void RemoteInject::OnBnClickedInject(std::string path)
 	}
 	//2.在远程申请的地址当中写入DLL的路径
 	SIZE_T dwWriten;
-	if (!WriteProcessMemory(hProcess, pszRemoteBuffer, (LPVOID)m_strDllPath.c_str(), m_strDllPath.length(), &dwWriten))
+	if (!WriteProcessMemory(hProcess, pszRemoteBuffer, (LPVOID)m_strDllPath.c_str(), bufLen, &dwWriten))
 	{
 		TipBox("写入内存失败");
 	}
@@ -66,4 +73,29 @@ void RemoteInject::OnBnClickedInject(std::string path)
 	}
 
 	WaitForSingleObject(hThread, 2000);
+}
+
+DWORD RemoteInject::GetProcessIdByName(std::string name)
+{
+	// 定义进程信息结构  
+	PROCESSENTRY32 pe32 = { sizeof(pe32) };
+
+	// 创建系统当前进程快照  
+	HANDLE hProcessShot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+	if (hProcessShot == INVALID_HANDLE_VALUE)
+		return FALSE;
+
+	std::wstring strWname = CharToWchar((char*)name.c_str());
+	if (Process32First(hProcessShot, &pe32))
+	{
+		do
+		{
+			if (wcscmp(pe32.szExeFile, strWname.c_str()) == 0)
+			{
+				return pe32.th32ProcessID;
+			}
+
+		} while (Process32Next(hProcessShot, &pe32));
+	}
+	return 0;
 }

@@ -33,7 +33,9 @@ void APCInject::StartInject(std::wstring stExe, std::wstring strDll)
 		MessageBoxW(NULL,L"CreateProcess失败！！",L"Tip",MB_OK);
 		return;
 	}
-
+	TCHAR szPath[MAX_PATH] = { 0 };
+	GetCurrentDirectoryW(MAX_PATH, szPath);
+	m_strDllPath = szPath + std::wstring(L"\\") + m_strDllPath;
 	int idllPathSize = m_strDllPath.size() * 2;
 	PVOID lpDllName = VirtualAllocEx(pi.hProcess,
 		NULL,
@@ -65,5 +67,5 @@ void APCInject::StartInject(std::wstring stExe, std::wstring strDll)
 
 	//恢复主线程
 	ResumeThread(pi.hThread);
-	MessageBoxW(NULL, L"APC注入成功！！", L"Tip", MB_OK);
+	wprintf(L"APC inject successfully！！");
 }

@@ -1,150 +1,150 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="PEFunctions">
-      <UniqueIdentifier>{37db6455-7559-4d9e-856a-589b40b03c6e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MemHack">
-      <UniqueIdentifier>{c5aa9c86-3ff1-47f4-81f9-491ab9c89a70}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject">
-      <UniqueIdentifier>{d782f734-9888-4535-9124-8469ee4e84f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\BlookHook">
-      <UniqueIdentifier>{0aff0810-4d84-4f3c-87af-2f7710d44035}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\Apc">
-      <UniqueIdentifier>{e746d8e3-35a6-4013-9cdf-16593e16d9a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\DebugInject">
-      <UniqueIdentifier>{166425bb-356e-4169-b476-9b58c797c829}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\Hijack">
-      <UniqueIdentifier>{7d6c338e-f154-4d2a-9d6e-625afdb79e7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\HookInject">
-      <UniqueIdentifier>{4a5eb1be-dccb-4502-a87d-44e23ecc9562}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\ImportInject">
-      <UniqueIdentifier>{93a25f3e-c57c-42f6-99c5-a10015d956e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\InputInject">
-      <UniqueIdentifier>{6a3e5c9b-0556-4982-bfe0-05e8d6040061}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\ProcessInject">
-      <UniqueIdentifier>{74a629fc-3a4c-4045-b72d-ec88307588ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\RemoteInject">
-      <UniqueIdentifier>{8fd54537-83d0-4104-9167-748ce3f31ee5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\RegInject">
-      <UniqueIdentifier>{a5c40384-a195-4013-b05b-1cf288206459}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DllInject\ThreadInject">
-      <UniqueIdentifier>{3f535b50-4227-4781-a6f7-9490450840f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TestSuite">
-      <UniqueIdentifier>{036e7233-68a8-4eb1-9077-62144a4ca78a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Main">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{8812e996-1576-4634-8f8e-50cddc25e554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\MemHack">
+      <UniqueIdentifier>{c5aa9c86-3ff1-47f4-81f9-491ab9c89a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject">
+      <UniqueIdentifier>{d782f734-9888-4535-9124-8469ee4e84f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\Apc">
+      <UniqueIdentifier>{e746d8e3-35a6-4013-9cdf-16593e16d9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\DebugInject">
+      <UniqueIdentifier>{166425bb-356e-4169-b476-9b58c797c829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\Hijack">
+      <UniqueIdentifier>{7d6c338e-f154-4d2a-9d6e-625afdb79e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\ImportInject">
+      <UniqueIdentifier>{93a25f3e-c57c-42f6-99c5-a10015d956e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\InputInject">
+      <UniqueIdentifier>{6a3e5c9b-0556-4982-bfe0-05e8d6040061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\ProcessInject">
+      <UniqueIdentifier>{74a629fc-3a4c-4045-b72d-ec88307588ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\RemoteInject">
+      <UniqueIdentifier>{8fd54537-83d0-4104-9167-748ce3f31ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\RegInject">
+      <UniqueIdentifier>{a5c40384-a195-4013-b05b-1cf288206459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\ThreadInject">
+      <UniqueIdentifier>{3f535b50-4227-4781-a6f7-9490450840f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Logic\PEFunctions">
+      <UniqueIdentifier>{37db6455-7559-4d9e-856a-589b40b03c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\TestSuite">
+      <UniqueIdentifier>{036e7233-68a8-4eb1-9077-62144a4ca78a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\DllInject\WindowHookInject">
+      <UniqueIdentifier>{4a5eb1be-dccb-4502-a87d-44e23ecc9562}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APCInject.h">
-      <Filter>DllInject\Apc</Filter>
-    </ClInclude>
-    <ClInclude Include="BlookHook.h">
-      <Filter>DllInject\BlookHook</Filter>
+      <Filter>Logic\DllInject\Apc</Filter>
     </ClInclude>
     <ClInclude Include="DebugInject.h">
-      <Filter>DllInject\DebugInject</Filter>
+      <Filter>Logic\DllInject\DebugInject</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Logic\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+      <Filter>Logic\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Hijack.h">
-      <Filter>DllInject\Hijack</Filter>
+      <Filter>Logic\DllInject\Hijack</Filter>
     </ClInclude>
     <ClInclude Include="HookInject.h">
-      <Filter>DllInject\HookInject</Filter>
+      <Filter>Logic\DllInject\WindowHookInject</Filter>
     </ClInclude>
     <ClInclude Include="ImportInject.h">
-      <Filter>DllInject\ImportInject</Filter>
+      <Filter>Logic\DllInject\ImportInject</Filter>
     </ClInclude>
     <ClInclude Include="InputInject.h">
-      <Filter>DllInject\InputInject</Filter>
+      <Filter>Logic\DllInject\InputInject</Filter>
     </ClInclude>
     <ClInclude Include="MemoryHacking\Memory.hpp">
-      <Filter>MemHack</Filter>
+      <Filter>Logic\MemHack</Filter>
     </ClInclude>
     <ClInclude Include="PEFuncs.h">
-      <Filter>PEFunctions</Filter>
+      <Filter>Logic\PEFunctions</Filter>
     </ClInclude>
     <ClInclude Include="ProcessInject.h">
-      <Filter>DllInject\ProcessInject</Filter>
+      <Filter>Logic\DllInject\ProcessInject</Filter>
     </ClInclude>
     <ClInclude Include="RegInject.h">
-      <Filter>DllInject\RegInject</Filter>
+      <Filter>Logic\DllInject\RegInject</Filter>
     </ClInclude>
     <ClInclude Include="RemoteInject.h">
-      <Filter>DllInject\RemoteInject</Filter>
+      <Filter>Logic\DllInject\RemoteInject</Filter>
     </ClInclude>
     <ClInclude Include="ThreadInject.h">
-      <Filter>DllInject\ThreadInject</Filter>
+      <Filter>Logic\DllInject\ThreadInject</Filter>
     </ClInclude>
     <ClInclude Include="..\TestSuite\TestMemHack.h">
-      <Filter>TestSuite</Filter>
+      <Filter>Logic\TestSuite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TestSuite\TestInjectDll.h">
+      <Filter>Logic\TestSuite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="APCInject.cpp">
-      <Filter>DllInject\Apc</Filter>
-    </ClCompile>
-    <ClCompile Include="BlookHook.cpp">
-      <Filter>DllInject\BlookHook</Filter>
+      <Filter>Logic\DllInject\Apc</Filter>
     </ClCompile>
     <ClCompile Include="DebugInject.cpp">
-      <Filter>DllInject\DebugInject</Filter>
+      <Filter>Logic\DllInject\DebugInject</Filter>
     </ClCompile>
     <ClCompile Include="Hijack.cpp">
-      <Filter>DllInject\Hijack</Filter>
+      <Filter>Logic\DllInject\Hijack</Filter>
     </ClCompile>
     <ClCompile Include="HookInject.cpp">
-      <Filter>DllInject\HookInject</Filter>
+      <Filter>Logic\DllInject\WindowHookInject</Filter>
     </ClCompile>
     <ClCompile Include="ImportInject.cpp">
-      <Filter>DllInject\ImportInject</Filter>
+      <Filter>Logic\DllInject\ImportInject</Filter>
     </ClCompile>
     <ClCompile Include="InputInject.cpp">
-      <Filter>DllInject\InputInject</Filter>
+      <Filter>Logic\DllInject\InputInject</Filter>
     </ClCompile>
     <ClCompile Include="MemoryHacking\Memory.cpp">
-      <Filter>MemHack</Filter>
+      <Filter>Logic\MemHack</Filter>
     </ClCompile>
     <ClCompile Include="PEFuncs.cpp">
-      <Filter>PEFunctions</Filter>
+      <Filter>Logic\PEFunctions</Filter>
     </ClCompile>
     <ClCompile Include="ProcessInject.cpp">
-      <Filter>DllInject\ProcessInject</Filter>
+      <Filter>Logic\DllInject\ProcessInject</Filter>
     </ClCompile>
     <ClCompile Include="RegInject.cpp">
-      <Filter>DllInject\RegInject</Filter>
+      <Filter>Logic\DllInject\RegInject</Filter>
     </ClCompile>
     <ClCompile Include="RemoteInject.cpp">
-      <Filter>DllInject\RemoteInject</Filter>
+      <Filter>Logic\DllInject\RemoteInject</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Main</Filter>
@@ -153,10 +153,13 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="ThreadInject.cpp">
-      <Filter>DllInject\ThreadInject</Filter>
+      <Filter>Logic\DllInject\ThreadInject</Filter>
     </ClCompile>
     <ClCompile Include="..\TestSuite\TestMemHack.cpp">
-      <Filter>TestSuite</Filter>
+      <Filter>Logic\TestSuite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TestSuite\TestInjectDll.cpp">
+      <Filter>Logic\TestSuite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

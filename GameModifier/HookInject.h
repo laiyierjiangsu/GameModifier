@@ -8,8 +8,8 @@ class HookInject
 public:
 	// ½ø³ÌID
 	DWORD m_dwPid;
-	std::string m_strDllPath;
+	std::wstring m_strDllPath;
 	 void OnBnClickedButton2();
-	 void StartInject(std::wstring stExe, std::string strDll);
+	 void StartInject(std::wstring stExe, std::wstring strDll);
 	 void OnBnClickedUnhook();
 };

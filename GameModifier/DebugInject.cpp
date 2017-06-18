@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "DebugInject.h"
-
+#include <assert.h>
 //结构必须字节对齐!  
 #pragma pack(1)  
 typedef struct _INJECT_CODE
@@ -24,7 +24,11 @@ typedef struct _INJECT_CODE
 void DebugInject::StartInject(std::wstring stExe, std::wstring strDll)
 {
 	 m_strExePath = stExe;
-	m_strDllPath = strDll;
+	TCHAR szPath[MAX_PATH] = { 0 };
+	GetCurrentDirectoryW(MAX_PATH, szPath);
+	m_strDllPath = szPath + std::wstring(L"\\") + strDll;
+	assert(_waccess(m_strDllPath.c_str(), 0) == 0);
+	int idllPathSize = m_strDllPath.size() * 2;
 
 	// TODO:  在此添加控件通知处理程序代码
 	BOOL bRet;
@@ -97,6 +101,10 @@ void DebugInject::StartInject(std::wstring stExe, std::wstring strDll)
 				MessageBox(NULL, L"WriteProcessMemory 失败", L"Tip", MB_OK);
 				return;
 			}
+			else
+			{
+				printf("Shell code is written!\n");
+			}
 
 
 			//获取当前线程上下文
@@ -164,7 +172,7 @@ void DebugInject::StartInject(std::wstring stExe, std::wstring strDll)
 					return;
 				}
 				//退出本进程，让被调试程序跑起来
-				//ExitProcess(0);
+				ExitProcess(0);
 				return;
 
 			}

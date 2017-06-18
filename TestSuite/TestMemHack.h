@@ -31,7 +31,7 @@ private:
 	DWORD GetProcessIDByName(wchar_t * pName);
 	bool GetOSVersionString(VS_FIXEDFILEINFO *vInfo);
 private:
-	DWORD g_dwAddList[PAGE*PAGE];;
+	DWORD* g_dwAddList;
 	DWORD g_dwCount ;
 	HANDLE g_hProcess;;
 	DWORD g_dwId ;

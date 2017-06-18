@@ -2,10 +2,8 @@
 //
 
 #include "stdafx.h"
-#include "APCInject.h"
-#include "DebugInject.h"
-#include "BlookHook.h"
-#include "HookInject.h"
+#include "TestSuite/TestMemHack.h"
+#include "TestSuite/TestInjectDll.h"
 int _tmain(int argc, _TCHAR* argv[])
 {
 
@@ -14,32 +12,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 	case 0:
 	{
-			  APCInject stAPCInject;
-			  stAPCInject.StartInject(L"ExeToHook.exe", L"E:\\GithubWorkspace\\GameModifier\\DllHijack\\TestHook\\Debug\\InjectDll.dll");
+			  TestInjectDll stInjectDll;
+			  stInjectDll.Test();
+			  break;
 	}
-		break;
 	case 1:
 	{
-			  DebugInject stDebugInject;
-			  stDebugInject.StartInject(L"ExeToHook.exe", L"E:\\GithubWorkspace\\GameModifier\\DllHijack\\TestHook\\Debug\\InjectDll.dll");
+			  //Modify memory
+			  TestMemhack stMemHack;
+			  stMemHack.Test();
+			  break;
 	}
-		break;
-	case 2:
-	{
-			  BlookHook stBlockHook;
-			  stBlockHook.OnBlockHook();
-	}
-		break;
-	case 3:
-	{
-			  HookInject stHookInject;
-			  stHookInject.StartInject(L"ExeToHook.exe", "E:\\GithubWorkspace\\GameModifier\\DllHijack\\TestHook\\Debug\\InjectDll.dll");
-	}
-		break;
 	default:
 		break;
 	}
-	printf("wait for exiting");
+	printf("wait for exiting!!!!!!");
 	getchar();
 	return 0;
 }

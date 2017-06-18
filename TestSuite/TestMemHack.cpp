@@ -1,7 +1,7 @@
 #include "TestMemHack.h"
 TestMemhack::TestMemhack()
 {
-	g_dwAddList[PAGE*PAGE];;
+	g_dwAddList = new DWORD[PAGE*PAGE];
 	g_dwCount = 0;
 	g_hProcess = 0;
 	g_dwId = 0;
@@ -15,7 +15,7 @@ void TestMemhack::Test()
 {
 	UINT uIndex = 0;
 	printf("start getProcessIDByName ! \n");
-	GetProcessIDByName(L"CrackMe.exe");
+	GetProcessIDByName(L"GameGuard.exe");
 
 	printf("start editValue :%d \n", g_dwId);
 	editValue(g_dwId);
@@ -124,7 +124,6 @@ void TestMemhack::editValue(DWORD dwId)
 	scanf("%d", &dwValue);
 
 	FindNext(dwValue);
-
 	ShowAddList();
 
 	printf("请输入要新值:");
@@ -215,7 +214,7 @@ BOOL TestMemhack::FindNext(DWORD dwValue)
 	{
 		if (!ReadProcessMemory(g_hProcess, (LPCVOID)g_dwAddList[i], &dwValue1, sizeof(DWORD), NULL))
 		{
-			//printf("读取内存失败\n");
+			printf("读取内存失败\n");
 			return FALSE;
 		}
 		if (dwValue1 == dwValue)
@@ -234,6 +233,7 @@ BOOL TestMemhack::WriteMemory(DWORD dwValue)
 	{
 		if (!WriteProcessMemory(g_hProcess, (LPVOID)g_dwAddList[i], (LPCVOID)&dwValue, sizeof(DWORD), NULL))
 		{
+			printf("Write process mem failed %#010x", g_dwAddList[i]);
 			return FALSE;
 		}
 
