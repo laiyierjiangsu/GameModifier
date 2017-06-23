@@ -3,7 +3,7 @@
 #include <TlHelp32.h>
 #include <string>
 #include <stdio.h>
-inline std::string Utils_WideChar_To_Utf8(wchar_t* wc)
+inline std::string WideChar2Utf8(wchar_t* wc)
 {
 	int len = WideCharToMultiByte(CP_ACP, 0, wc, wcslen(wc), NULL, 0, NULL, NULL);
 	char* m_char = new char[len + 1];
@@ -13,7 +13,7 @@ inline std::string Utils_WideChar_To_Utf8(wchar_t* wc)
 	delete[] m_char;
 	return rRet;
 }
-inline std::wstring CharToWchar(char* c)
+inline std::wstring Utf82WideChar(char* c)
 {
 
 	int len = MultiByteToWideChar(CP_ACP, 0, c, strlen(c), NULL, 0);
@@ -34,7 +34,7 @@ inline DWORD GetProcessIdByName(std::string name)
 	if (hProcessShot == INVALID_HANDLE_VALUE)
 		return FALSE;
 
-	std::wstring strWname = CharToWchar((char*)name.c_str());
+	std::wstring strWname = Utf82WideChar((char*)name.c_str());
 	if (Process32First(hProcessShot, &pe32))
 	{
 		do

@@ -99,7 +99,7 @@ bool TestMemhack::GetOSVersionString(VS_FIXEDFILEINFO *vInfo)
 		LOWORD(vInfo->dwFileVersionMS),
 		HIWORD(vInfo->dwFileVersionLS),
 		LOWORD(vInfo->dwFileVersionLS));
-	printf("OS version: %s\n", Utils_WideChar_To_Utf8(szVersion).c_str());
+	printf("OS version: %s\n", WideChar2Utf8(szVersion).c_str());
 
 	return true;
 }
@@ -312,7 +312,7 @@ void TestMemhack::showAllProcess()
 
 	while (bMore)
 	{
-		printf("进程ID:%4d | 进程名称：%s\n", pc.th32ProcessID, Utils_WideChar_To_Utf8(pc.szExeFile).c_str());
+		printf("进程ID:%4d | 进程名称：%s\n", pc.th32ProcessID, WideChar2Utf8(pc.szExeFile).c_str());
 		bMore = Process32Next(dProcessSnap, &pc);
 	}
 

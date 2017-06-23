@@ -1,5 +1,5 @@
 #include "FileIntegrityDetection.h"
-#include "Decoder/crc32.h"
+#include "ThirdParty/Decoder/crc32.h"
 #include "Framework.h"
 FileIntegrityDetector::FileIntegrityDetector()
 {

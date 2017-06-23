@@ -180,6 +180,11 @@ void Hijack::OnDropFiles(HDROP hDropInfo)
 
 }
 
+Hijack::Hijack()
+{
+	m_bIsFirst = TRUE;
+}
+
 /*******************************************************
 *函数功能:从DLL中获取并且拿到导入表
 *函数参数:无

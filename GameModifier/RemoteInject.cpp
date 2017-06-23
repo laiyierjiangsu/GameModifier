@@ -85,7 +85,7 @@ DWORD RemoteInject::GetProcessIdByName(std::string name)
 	if (hProcessShot == INVALID_HANDLE_VALUE)
 		return FALSE;
 
-	std::wstring strWname = CharToWchar((char*)name.c_str());
+	std::wstring strWname = Utf82WideChar((char*)name.c_str());
 	if (Process32First(hProcessShot, &pe32))
 	{
 		do

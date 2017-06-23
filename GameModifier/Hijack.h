@@ -7,9 +7,10 @@
 class Hijack
 {
 public:
+	Hijack();
 	//CListCtrl m_mylist;
 	PMAP_FILE_STRUCT m_pstMapFile;
-	BOOL m_bIsFirst = TRUE;
+	BOOL m_bIsFirst;
 	std::list<std::string> m_FunNameList;
 
 public:

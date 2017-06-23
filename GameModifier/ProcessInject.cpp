@@ -55,7 +55,7 @@ void ProcessInject::OnStartInject(std::string exePath,std::string dllPath)
 	si.cb = sizeof(PROCESS_INFORMATION);
 	HANDLE hThread = NULL;
 	//以挂起的方式创建进程
-	std::wstring path = CharToWchar((char*)m_strExePath.c_str());
+	std::wstring path = Utf82WideChar((char*)m_strExePath.c_str());
 	bRet = CreateProcess(path.c_str(), NULL, NULL, NULL, FALSE, CREATE_SUSPENDED,
 		NULL, NULL, &si, &pi);
 

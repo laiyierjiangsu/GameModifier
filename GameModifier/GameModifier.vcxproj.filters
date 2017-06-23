@@ -49,14 +49,20 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Logic\PEFunctions">
-      <UniqueIdentifier>{37db6455-7559-4d9e-856a-589b40b03c6e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Logic\TestSuite">
       <UniqueIdentifier>{036e7233-68a8-4eb1-9077-62144a4ca78a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Logic\DllInject\WindowHookInject">
       <UniqueIdentifier>{4a5eb1be-dccb-4502-a87d-44e23ecc9562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\BreakPoint">
+      <UniqueIdentifier>{c33feca6-bdac-4d8c-8ed6-40f7ccc85763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{f35b1b0b-f3ac-4431-9e75-c58ee2090074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\ShellcodeInject">
+      <UniqueIdentifier>{62f9d641-2913-49a3-860e-ad1e944a3e1b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +93,6 @@
     <ClInclude Include="MemoryHacking\Memory.hpp">
       <Filter>Logic\MemHack</Filter>
     </ClInclude>
-    <ClInclude Include="PEFuncs.h">
-      <Filter>Logic\PEFunctions</Filter>
-    </ClInclude>
     <ClInclude Include="ProcessInject.h">
       <Filter>Logic\DllInject\ProcessInject</Filter>
     </ClInclude>
@@ -108,8 +111,17 @@
     <ClInclude Include="..\TestSuite\TestInjectDll.h">
       <Filter>Logic\TestSuite</Filter>
     </ClInclude>
+    <ClInclude Include="BreakPointOp.h">
+      <Filter>Logic\BreakPoint</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\Utils.h">
-      <Filter>Main</Filter>
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\PEFuncs.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellCode\ShellCodeInject.h">
+      <Filter>Logic\ShellcodeInject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +146,6 @@
     <ClCompile Include="MemoryHacking\Memory.cpp">
       <Filter>Logic\MemHack</Filter>
     </ClCompile>
-    <ClCompile Include="PEFuncs.cpp">
-      <Filter>Logic\PEFunctions</Filter>
-    </ClCompile>
     <ClCompile Include="ProcessInject.cpp">
       <Filter>Logic\DllInject\ProcessInject</Filter>
     </ClCompile>
@@ -145,9 +154,6 @@
     </ClCompile>
     <ClCompile Include="RemoteInject.cpp">
       <Filter>Logic\DllInject\RemoteInject</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="GameModifier.cpp">
       <Filter>Main</Filter>
@@ -160,6 +166,18 @@
     </ClCompile>
     <ClCompile Include="..\TestSuite\TestInjectDll.cpp">
       <Filter>Logic\TestSuite</Filter>
+    </ClCompile>
+    <ClCompile Include="BreakPointOp.cpp">
+      <Filter>Logic\BreakPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\PEFuncs.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="ShellCode\ShellCodeInject.cpp">
+      <Filter>Logic\ShellcodeInject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

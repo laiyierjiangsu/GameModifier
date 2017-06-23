@@ -1,6 +1,8 @@
 #include "ImageIntegrityDetector.h"
-#include "Decoder/crc32.h"
+#include "ThirdParty/Decoder/crc32.h"
 #include "Framework.h"
+#include "PEFuncs.h"
+#include "Utils.h"
 ImageIntegrityDetector::ImageIntegrityDetector()
 {
 }
@@ -37,10 +39,11 @@ void ImageIntegrityDetector::Detect()
 {
 	CheckCodeSnipeCrc32();
 	DWORD PECrc32 = 0, ImageCrc32 = 0;
-	HMODULE hModule = LoadLibraryA("InjectDll.dll");
+	HMODULE hModule = LoadLibraryA("InjectedDll.dll");
 	assert(hModule != nullptr);
-	assert(ImageCodeSectionCrc32("InjectDll.dll", ImageCrc32));
-	assert(PEFileCodeSectionCrc32("InjectDll.dll", PECrc32));
+	assert(ImageCodeSectionCrc32("InjectedDll.dll", ImageCrc32));
+	assert(PEFileCodeSectionCrc32_2("InjectedDll.dll", PECrc32));
+	assert(PEFileCodeSectionCrc32("InjectedDll.dll", PECrc32));
 	assert(ImageCrc32 == PECrc32);
 }
 
@@ -71,6 +74,22 @@ bool ImageIntegrityDetector::PEFileCodeSectionCrc32(char* pFile, DWORD& crc32)
 	::CloseHandle(hFile);
 	delete[]pBuff;
 	return true;
+}
+
+bool ImageIntegrityDetector::PEFileCodeSectionCrc32_2(char* pFile , DWORD& crc32)
+{
+	MAP_FILE_STRUCT stFileMap;
+
+	BOOL bRet = LoadFileR((LPTSTR)Utf82WideChar(pFile).c_str(),&stFileMap);
+	assert(bRet ==TRUE);
+	PIMAGE_SECTION_HEADER pSectionHeader = GetFirstSectionHeader(stFileMap.ImageBase);
+	crc32 = Crc32_ComputeBuf((BYTE*)((BYTE*)stFileMap.ImageBase + pSectionHeader->VirtualAddress),
+		pSectionHeader->Misc.VirtualSize);
+	//BYTE* pStart = (BYTE*)(ImageBase + pSectionHeader->VirtualAddress);
+
+	UnLoadFile(&stFileMap);
+	return bRet;
+
 }
 
 bool ImageIntegrityDetector::CheckCodeSnipeCrc32()

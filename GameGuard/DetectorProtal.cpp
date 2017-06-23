@@ -6,12 +6,14 @@
 #include "ImageIntegrityDetector.h"
 #include "WindowDetector.h"
 #include "ProcessDetector.h"
+#include "DebuggerDetector.h"
 #include "DllInjectDetector.h"
 FileIntegrityDetector _gFileIntegrityDetector;
 ImageIntegrityDetector _gImageIntegrityDetector;
 WindowDetector		_gWndDetector;
 ProcessDetector		_gProcessDetector;
 DllInjectDetector	_gDllInjectDetector;
+DebuggerDetector   _gDebuggerDetector;
 DetectorPortal::DetectorPortal()
 {
 	iCurrTime = 0;
@@ -30,10 +32,11 @@ void DetectorPortal ::DetectProcess()
 	while (true)
 	{
 		//_gFileIntegrityDetector.Detect();
-		//_gImageIntegrityDetector.Detect();
+		_gImageIntegrityDetector.Detect();
 		//_gWndDetector.Detect();
 		//_gProcessDetector.Detect();
-		_gDllInjectDetector.Detect();
+		//_gDllInjectDetector.Detect();
+		//_gDebuggerDetector.Detect();
 		Sleep(10000);
 		//break;
 	}

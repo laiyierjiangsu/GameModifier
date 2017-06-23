@@ -1,5 +1,12 @@
 // dllmain.cpp : 定义 DLL 应用程序的入口点。
 #include "stdafx.h"
+/*
+ extern "C"使得在C++中使用C编译方式成为可能。在“C++”下定义“C”函数，需要加extern “C”关键词。
+	 用extern "C"来指明该函数使用C编译方式。输出的“C”函数可以从“C”代码里调用
+	使用微软专用的_declspec (dllexport)  
+	cpp文件在编译为OBJ文件时要对函数进行重新命名，C语言会把函数name重新命名为_name,而C++会重新命名为_name@@decoration，
+	extern "C"表示用C语言的格式将函数重命名
+	要输出整个的类，对类使用_declspec(_dllexpot)；要输出类的成员函数，则对该函数使用_declspec(_dllexport)*/
 
 #define EXPORTFUN extern "C" __declspec(dllexport) 
 
@@ -9,12 +16,18 @@ HWND g_hWinProcess;
 HHOOK g_hHook;
 char g_szDllPath[MAX_PATH];
 
-__declspec(dllexport)LRESULT MyMessageProcess(int Code, WPARAM wParam, LPARAM lParam)
+EXPORTFUN LRESULT MyMessageProcess(int Code, WPARAM wParam, LPARAM lParam)
 {
 	//
 	//你自己对消息的处理
 	//
 	return CallNextHookEx(g_hHook, Code, wParam, lParam);
+}
+EXPORTFUN void TestMessageBox()
+{
+	//
+	//你自己对消息的处理
+	MessageBoxW(NULL,L"Test",L"Test",MB_OK); 
 }
 
 

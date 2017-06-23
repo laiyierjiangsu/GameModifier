@@ -1,5 +1,5 @@
 #include "DllInjectDetector.h"
-#include "MiniHook/include/MinHook.h"
+#include "ThirdParty/MiniHook/include/MinHook.h"
 #include "Framework.h"
 #include <psapi.h>
 typedef struct _UNICODE_STRING { // UNICODE_STRING structure  

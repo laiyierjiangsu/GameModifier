@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <list>
-using EXEList = std::list<std::wstring>;
-using EXElIstIter = EXEList::iterator;
+typedef  std::list<std::wstring> EXEList;
+typedef  EXEList::iterator EXElIstIter;
 class ProcessDetector
 {
 public:

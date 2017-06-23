@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <list>
-using WndList = std::list<std::wstring>;
-using WndListIter = WndList::iterator;
+typedef std::list<std::wstring> WndList ;
+typedef WndList::iterator WndListIter;
 class WindowDetector
 {
 public:

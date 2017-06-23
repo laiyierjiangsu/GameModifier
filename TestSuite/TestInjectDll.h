@@ -5,5 +5,5 @@ public:
 	~TestInjectDll();
 	void Test();
 private:
-
+	void TestLoadInjectedDll();
 };

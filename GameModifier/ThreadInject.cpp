@@ -49,7 +49,7 @@ void ThreadInject::StartInject(std::wstring stExe, std::wstring strDll)
 	m_strDllPath = szPath + std::wstring(L"\\") + strDll;
 	assert(_waccess(m_strDllPath.c_str(), 0) == 0);
 
-	m_dwPid = GetProcessIdByName(Utils_WideChar_To_Utf8((wchar_t*)m_strExePath.c_str()));
+	m_dwPid = GetProcessIdByName(WideChar2Utf8((wchar_t*)m_strExePath.c_str()));
 	// TODO:  在此添加控件通知处理程序代码
 	//打开目标进程
 	BOOL   bRet = 0;
@@ -78,7 +78,7 @@ void ThreadInject::StartInject(std::wstring stExe, std::wstring strDll)
 		TipBox("VirtualAllocEx 失败");
 		return;
 	}
-	std::string dllPath = Utils_WideChar_To_Utf8((wchar_t*)m_strDllPath.c_str());
+	std::string dllPath = WideChar2Utf8((wchar_t*)m_strDllPath.c_str());
 	//给ShellCode结构体赋值
 	ic.byPUSH			= 0x68;
 	ic.dwPUSH_VALUE		= 0x12345678;

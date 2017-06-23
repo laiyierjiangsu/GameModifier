@@ -1,5 +1,5 @@
 #include "Memory.hpp"
-#include "Utils.h"
+#include "Include/Utils.h"
 
 int Memory::GetProcessId(char* processName) {
     SetLastError(0);
@@ -11,7 +11,7 @@ int Memory::GetProcessId(char* processName) {
     
     if( Process32First( hSnapshot, &pe32 ) ) {
         do {
-			const char* pchar = Utils_WideChar_To_Utf8(pe32.szExeFile).c_str();
+			const char* pchar = WideChar2Utf8(pe32.szExeFile).c_str();
 			if (strcmp(pchar, processName) == 0)
                 break;
         } while( Process32Next( hSnapshot, &pe32 ) );
