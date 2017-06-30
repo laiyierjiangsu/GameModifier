@@ -49,6 +49,44 @@ bool DebuggerDetector::NGuard_IsDebuggerPresent()
 	return IsDebuggerPresent();
 }
 
+void DebuggerDetector::OutputErrorMsg()   
+{   
+	// Retrieve the system error message for the last-error code  
+
+	LPVOID lpMsgBuf;  
+	DWORD dw = GetLastError();   
+
+	FormatMessage(  
+		FORMAT_MESSAGE_ALLOCATE_BUFFER |   
+		FORMAT_MESSAGE_FROM_SYSTEM |  
+		FORMAT_MESSAGE_IGNORE_INSERTS,  
+		NULL,  
+		dw,  
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),  
+		(LPTSTR) &lpMsgBuf,  
+		0, NULL );  
+
+	MessageBox(NULL, (LPCTSTR)lpMsgBuf, TEXT("Error"), MB_OK);   
+
+	LocalFree(lpMsgBuf);  
+	ExitProcess(dw);   
+}  
+
+
+
+bool DebuggerDetector::NGuard_CheckRemoteDebuggerPresent()
+{
+	PBOOL   bBool = false;
+	BOOL bDebbugging = FALSE;
+	BOOL bRet =  CheckRemoteDebuggerPresent(GetCurrentProcess(),&bDebbugging);
+	if (bRet)
+	{
+		return bDebbugging;
+	}
+	OutputErrorMsg();
+	return false;
+}
+
 bool DebuggerDetector::NGuard_CheckByOutputDebugString()
 {
 	OutputDebugString(L"Test");
@@ -173,6 +211,7 @@ bool DebuggerDetector::NGuard_NtQueryInfoProc_ZW_QUERY_INFORMATION_PROCESS()
 bool DebuggerDetector::Detect()
 {
 	printf("IsDebug AD_IsDebuggerPresent %d\n" , NGuard_IsDebuggerPresent());
+	printf("IsDebug NGuard_CheckRemoteDebuggerPresent %d\n" , NGuard_CheckRemoteDebuggerPresent());
 	printf(" AD_CheckByOutputDebugString %d\n" , NGuard_CheckByOutputDebugString());
 	printf("FD_NtQueryInfoProc_DbgPort %d\n" , NGuard_NtQueryInfoProc_DbgPort());
 	printf("FD_NtQueryInfoProc_SYSTEM_INFORMATION %d\n" , NGuard_NtQueryInfoProc_SYSTEM_INFORMATION());

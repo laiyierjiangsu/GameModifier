@@ -7,7 +7,9 @@ public:
 	void Detect();
 private:
 	bool CheckFileSum();
-
+	void CheckFileModified();
+	bool AddCrc322File();
+	bool IsFileModified();
 private:
 
 };

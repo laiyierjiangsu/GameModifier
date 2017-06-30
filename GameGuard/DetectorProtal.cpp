@@ -31,14 +31,14 @@ void DetectorPortal ::DetectProcess()
 	_detectorThreadHandle = GetCurrentThread();
 	while (true)
 	{
-		//_gFileIntegrityDetector.Detect();
+	//	_gFileIntegrityDetector.Detect();
 		_gImageIntegrityDetector.Detect();
 		//_gWndDetector.Detect();
 		//_gProcessDetector.Detect();
 		//_gDllInjectDetector.Detect();
 		//_gDebuggerDetector.Detect();
-		Sleep(10000);
-		//break;
+		//Sleep(10000);
+		break;
 	}
 	printf("Detector thread has been exit!");
 	iCurrTime = timeGetTime();

@@ -7,7 +7,19 @@ public:
 	ImageIntegrityDetector();
 	~ImageIntegrityDetector();
 	void Detect();
+
+
+
+
 private:
+
+
+
+
+	void CheckImageIsModified();
+	void CalcImageSize(char* pDllname);
+
+	bool AddCodeSectionCrc2File();
 	bool CheckCodeSnipeCrc32();
 	bool ImageCodeSectionCrc32(char* pModuleName, DWORD &crc32);
 	bool PEFileCodeSectionCrc32(char* pFile , DWORD& crc32);
