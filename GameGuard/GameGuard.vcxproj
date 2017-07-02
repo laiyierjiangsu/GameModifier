@@ -112,6 +112,7 @@
     <ClInclude Include="ProcessDetector.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TestObjPool.h" />
     <ClInclude Include="WindowDetector.h" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +136,7 @@
     <ClCompile Include="MemProtect.cpp" />
     <ClCompile Include="ProcessDetector.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TestObjPool.cpp" />
     <ClCompile Include="WindowDetector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

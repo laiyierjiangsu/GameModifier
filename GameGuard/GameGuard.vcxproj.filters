@@ -123,6 +123,9 @@
     <ClInclude Include="MemProtect.h">
       <Filter>MemProtect</Filter>
     </ClInclude>
+    <ClInclude Include="TestObjPool.h">
+      <Filter>TestSuite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="MemProtect.cpp">
       <Filter>MemProtect</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObjPool.cpp">
+      <Filter>TestSuite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
