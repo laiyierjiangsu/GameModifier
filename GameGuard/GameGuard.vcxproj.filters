@@ -37,6 +37,9 @@
     <Filter Include="TestSuite">
       <UniqueIdentifier>{977cbaa5-feb2-4835-8c5e-a5b37e7232c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MemProtect">
+      <UniqueIdentifier>{1bb53729-64a6-4c04-a9b2-5de25a5440e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -117,6 +120,9 @@
     <ClInclude Include="..\include\Framework.h">
       <Filter>DetectorLogic</Filter>
     </ClInclude>
+    <ClInclude Include="MemProtect.h">
+      <Filter>MemProtect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -178,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="..\include\PEFuncs.cpp">
       <Filter>Common\MiniHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MemProtect.cpp">
+      <Filter>MemProtect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

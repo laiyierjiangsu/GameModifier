@@ -16,9 +16,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	HMODULE hModule = GetModuleHandle(NULL);
 	int b = 0;
 	int c  = 0;
-	printf("------b = %p, c = %p\n",&b,&c);
+//	printf("------b = %p, c = %p\n",&b,&c);
 	a = new char[2];
-	printf("----main a---:%p, %p\n",a,&a);
+	//printf("----main a---:%p, %p\n",a,&a);
 	static int i = 0;
 	while (true)
 	{
@@ -26,9 +26,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		//bool bLive = _globalDetector.IsLive(timeGetTime());
 		////printf("detecor is live £¿£¿ %s\n",bLive ?"true":"false" );
 		//printf("wait for hacking %d\n", i++);
-		_globalDetector.Init();
+		//_globalDetector.Init();
 		//printf("Test suite pointer: %p\n", &_gTestSuite);
-		//_gTestSuite.Test();
+		_gTestSuite.Test();
 		break;
 	}
 	getchar();
