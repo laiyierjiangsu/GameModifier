@@ -36,6 +36,45 @@ NTSTATUS WINAPI MyLoadDll(
 };
 
 
+DWORD m_dwUser32Start;
+DWORD m_dwUser32End;
+typedef HMODULE(WINAPI*fLoadLibraryW)(LPCWSTR  lpLibFileName);
+fLoadLibraryW rawLoadLibraryW;
+HMODULE WINAPI NLoadLibraryW(LPCWSTR  lpLibFileName)
+{
+	//get the return address
+	DWORD dwCaller;
+	//ebp+4返回上层调用者的地址
+	__asm push dword ptr[ebp + 4]
+		__asm pop  dword ptr[dwCaller]
+		if (dwCaller > m_dwUser32Start && dwCaller < m_dwUser32End)
+		{
+			return FALSE;
+		}
+
+		return rawLoadLibraryW(lpLibFileName);
+}
+
+
+typedef HMODULE(WINAPI*fLoadLibrary)(LPCTSTR   lpLibFileName);
+fLoadLibrary rawLoadLibrary;
+HMODULE WINAPI NLoadLibrary(LPCTSTR   lpLibFileName)
+{
+	//get the return address
+	DWORD dwCaller;
+	//ebp+4返回上层调用者的地址
+	__asm push dword ptr[ebp + 4]
+		__asm pop  dword ptr[dwCaller]
+		if (dwCaller > m_dwUser32Start && dwCaller < m_dwUser32End)
+		{
+			return FALSE;
+		}
+
+		return rawLoadLibrary(lpLibFileName);
+}
+
+
+
 DllInjectDetector::DllInjectDetector()
 {
 	bInitialized = false;
@@ -47,10 +86,16 @@ DllInjectDetector::~DllInjectDetector()
 
 bool DllInjectDetector::Init()
 {
+	
 	MH_STATUS hr = MH_Initialize();
 	False_Return(hr == MH_OK);
 	hr = MH_CreateHookApi(L"Ntdll.dll", "LdrLoadDll", (LPVOID)&MyLoadDll, (LPVOID*)&pOrigin);
 	False_Return(hr == MH_OK);
+	//hr = MH_CreateHookApi(L"Kernel32.dll", "LoadLibraryW", (LPVOID)&NLoadLibraryW, (LPVOID*)&rawLoadLibraryW);
+	//False_Return(hr == MH_OK);
+	//hr = MH_CreateHookApi(L"Kernel32.dll", "LoadLibraryA", (LPVOID)&NLoadLibrary, (LPVOID*)&rawLoadLibrary);
+	//False_Return(hr == MH_OK);
+
 	//Hook Ntdll!LdrLoadDll？？？ hook createremotethread ? ? Hook writeprocessmemory ?
 	hr = MH_EnableHook(MH_ALL_HOOKS);
 	False_Return(hr == MH_OK);
@@ -106,5 +151,6 @@ void DllInjectDetector::Detect()
 	{
 		Init();
 	}
+	LoadLibrary(L"InjectedDll.dll");
 	EnumAllModulesOfProcess();
 }

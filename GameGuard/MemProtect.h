@@ -9,6 +9,6 @@ private:
 	int  GetValue();
 	void SetValue(int a);
 private:
-	unsigned int m_iLifeValue;
+	unsigned int m_iEncodeValue;
 };
 

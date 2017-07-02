@@ -26,10 +26,10 @@ void TestInjectDll::Test()
 	//stDebugInject.StartInject(L"GameGuard.exe", L"InjectedDll.dll");
 	//stBlockHook.OnBlockHook();
 	//stHookInject.StartInject(L"GameGuard.exe", L"InjectedDll.dll");
-	//stRemoteInject.StartInject("GameGuard.exe", "InjectedDll.dll");
+	 stRemoteInject.StartInject("GameGuard.exe", "InjectedDll.dll");
 	//stThreadInject.StartInject(L"GameGuard.exe", L"InjectedDll.dll");
 	//stProcessInject.OnStartInject("GameGuard.exe", "InjectedDll.dll");
-	TestLoadInjectedDll();
+	//TestLoadInjectedDll();
 }
 typedef  void (* ExportFun)();
 void TestInjectDll::TestLoadInjectedDll()

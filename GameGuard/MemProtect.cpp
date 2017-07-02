@@ -12,17 +12,17 @@ MemProtect::~MemProtect()
 
 int MemProtect::GetValue()
 {
-	return (n^ m_iLifeValue) - m;
+	return (n^ m_iEncodeValue) - m;
 }
 
 void MemProtect::SetValue(int a)
 {
-	m_iLifeValue = n ^ a + m;
+	m_iEncodeValue = n ^ a + m;
 }
 
 void MemProtect::Test()
 {
 	SetValue(3233);
-	printf("origin : %d, cur: %d, getCur:%d \n", 3233, m_iLifeValue, GetValue());
+	printf("origin : %d, cur: %d, getCur:%d \n", 3233, m_iEncodeValue, GetValue());
 	GetValue();
 }
