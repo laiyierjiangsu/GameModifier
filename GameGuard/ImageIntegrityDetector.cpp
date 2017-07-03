@@ -68,17 +68,23 @@ void ImageIntegrityDetector::CheckImageIsModified()
 {
 	printf("Start checking image integrity!\n");
 	DWORD PECrc32 = 0, ImageCrc32 = 0;
-	assert(AddCodeSectionCrc2File());
+	assert(AddCodeSectionCrc2File(L"InjectedDll.dll"));
 	HMODULE hModule = LoadLibraryA("InjectedDll.dll");
 	assert(hModule != nullptr);
+	assert(ImageCodeSectionCrc32("InjectedDll.dll", ImageCrc32));
 	
 	//assert(PEFileCodeSectionCrc32_2("InjectedDll.dll", PECrc32));
 	//assert(PEFileCodeSectionCrc32("InjectedDll.dll", PECrc32));
 	CalcImageSize("InjectedDll.dll");
 	CalcImageSize("kernel32.dll");
 	CalcImageSize("lpk.dll");
-	assert(ImageCodeSectionCrc32("InjectedDll.dll", ImageCrc32));
+	
 	printf("End checking image integrity!\n");
+}
+
+void ImageIntegrityDetector::CheckSelfIsModified()
+{
+
 }
 
 void ImageIntegrityDetector::CalcImageSize(char* pDllname)
@@ -98,7 +104,7 @@ void ImageIntegrityDetector::CalcImageSize(char* pDllname)
 
 }
 
-bool ImageIntegrityDetector::AddCodeSectionCrc2File()
+bool ImageIntegrityDetector::AddCodeSectionCrc2File(TCHAR*szFileName)
 {
 		PIMAGE_DOS_HEADER	    pDosHeader=NULL;
 		PIMAGE_NT_HEADERS       pNtHeader=NULL;
@@ -116,7 +122,7 @@ bool ImageIntegrityDetector::AddCodeSectionCrc2File()
 
 		//static TCHAR szFilter[] =TEXT ("EXE Files (*.exe)\0*.exe\0") \
 			//TEXT ("All Files (*.*)\0*.*\0\0") ;
-		TCHAR* szFileName =L"InjectedDll.dll";
+		//TCHAR* szFileName =L"InjectedDll.dll";
 		//szFileName[0] = '\0';                         
 		ZeroMemory(&ofn, sizeof(ofn));                             // 初始化OPENFILENAME结构
 		ofn.lStructSize       = sizeof (OPENFILENAME) ;

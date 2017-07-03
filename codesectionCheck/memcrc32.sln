@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "memcrc32", "memcrc32.vcproj", "{84E421B8-BE00-43E6-B840-EE57253B1CE2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "add2memcrc32", "add2memcrc32.vcproj", "{9D40505E-CDC9-4D84-B82A-2CF18017CA84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84E421B8-BE00-43E6-B840-EE57253B1CE2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{84E421B8-BE00-43E6-B840-EE57253B1CE2}.Debug|Win32.Build.0 = Debug|Win32
+		{84E421B8-BE00-43E6-B840-EE57253B1CE2}.Release|Win32.ActiveCfg = Release|Win32
+		{84E421B8-BE00-43E6-B840-EE57253B1CE2}.Release|Win32.Build.0 = Release|Win32
+		{9D40505E-CDC9-4D84-B82A-2CF18017CA84}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9D40505E-CDC9-4D84-B82A-2CF18017CA84}.Debug|Win32.Build.0 = Debug|Win32
+		{9D40505E-CDC9-4D84-B82A-2CF18017CA84}.Release|Win32.ActiveCfg = Release|Win32
+		{9D40505E-CDC9-4D84-B82A-2CF18017CA84}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

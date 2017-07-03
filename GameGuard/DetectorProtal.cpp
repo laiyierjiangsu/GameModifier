@@ -32,10 +32,10 @@ void DetectorPortal ::DetectProcess()
 	while (true)
 	{
 	//	_gFileIntegrityDetector.Detect();
-		//_gImageIntegrityDetector.Detect();
+		_gImageIntegrityDetector.Detect();
 		//_gWndDetector.Detect();
 		//_gProcessDetector.Detect();
-		_gDllInjectDetector.Detect();
+		//_gDllInjectDetector.Detect();
 		//_gDebuggerDetector.Detect();
 		//Sleep(10000);
 		break;
