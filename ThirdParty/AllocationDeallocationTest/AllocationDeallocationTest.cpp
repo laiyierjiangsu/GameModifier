@@ -1,4 +1,4 @@
-// AllocationDeallocationTest.cpp : définit le point d'entrée pour l'application console.
+// AllocationDeallocationTest.cpp? définit le point d'entrée pour l'application console.
 //
 
 #include "stdafx.h"
@@ -49,7 +49,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::cout << "Time spent using normal new/delete calls: " << end - start << " milliseconds" << std::endl << std::endl;
 	std::cout << "Program finished. Press any key to close." << std::endl;
 	std::cin.ignore();
-
+	getchar();
 	return 0;
 }
 

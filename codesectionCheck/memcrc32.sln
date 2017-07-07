@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "memcrc32", "memcrc32.vcproj
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "add2memcrc32", "add2memcrc32.vcproj", "{9D40505E-CDC9-4D84-B82A-2CF18017CA84}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcproj", "{AA7AD226-BB4C-40E6-BDB0-7C7305B51B9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{9D40505E-CDC9-4D84-B82A-2CF18017CA84}.Debug|Win32.Build.0 = Debug|Win32
 		{9D40505E-CDC9-4D84-B82A-2CF18017CA84}.Release|Win32.ActiveCfg = Release|Win32
 		{9D40505E-CDC9-4D84-B82A-2CF18017CA84}.Release|Win32.Build.0 = Release|Win32
+		{AA7AD226-BB4C-40E6-BDB0-7C7305B51B9E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AA7AD226-BB4C-40E6-BDB0-7C7305B51B9E}.Debug|Win32.Build.0 = Debug|Win32
+		{AA7AD226-BB4C-40E6-BDB0-7C7305B51B9E}.Release|Win32.ActiveCfg = Release|Win32
+		{AA7AD226-BB4C-40E6-BDB0-7C7305B51B9E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

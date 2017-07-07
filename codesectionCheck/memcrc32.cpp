@@ -15,7 +15,7 @@ BOOL CodeSectionCRC32( );
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     PSTR szCmdLine, int iCmdShow)
 {
-	
+	HMODULE hmodule  = LoadLibraryA("Test.dll");
 	if(CodeSectionCRC32())
 		MessageBox(NULL,TEXT ("CRC32 Check OK!"),TEXT ("OK"),MB_ICONEXCLAMATION);
 	else
@@ -36,8 +36,8 @@ BOOL CodeSectionCRC32( )
 
 	DWORD					ImageBase,OriginalCRC32;
 
-
-	ImageBase=(DWORD)GetModuleHandle(NULL);//取基址，其实本例也可直接用0x4000000这个值
+    ImageBase=(DWORD)GetModuleHandle("Test.dll");//取基址，其实本例也可直接用0x4000000这个值
+	//ImageBase=(DWORD)GetModuleHandle(NULL);//取基址，其实本例也可直接用0x4000000这个值
 
 	 pDosHeader=(PIMAGE_DOS_HEADER)ImageBase;	 	 
      pNtHeader=(PIMAGE_NT_HEADERS32)((DWORD)pDosHeader+pDosHeader->e_lfanew);
