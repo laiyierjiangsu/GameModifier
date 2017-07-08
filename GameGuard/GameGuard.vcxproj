@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -90,6 +90,7 @@
     <ClInclude Include="..\include\CommonMacro.h" />
     <ClInclude Include="..\include\Framework.h" />
     <ClInclude Include="..\include\PEFuncs.h" />
+    <ClInclude Include="..\TestSuite\TestLruCache.h" />
     <ClInclude Include="..\TestSuite\TestSuitePortal.h" />
     <ClInclude Include="..\TestSuite\TMemBase.h" />
     <ClInclude Include="..\ThirdParty\Decoder\crc32.h" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\include\PEFuncs.cpp" />
+    <ClCompile Include="..\TestSuite\TestLruCache.cpp" />
     <ClCompile Include="..\TestSuite\TestSuitePortal.cpp" />
     <ClCompile Include="..\TestSuite\TMemBase.cpp" />
     <ClCompile Include="..\ThirdParty\Decoder\crc32.cpp" />

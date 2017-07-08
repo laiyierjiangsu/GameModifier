@@ -126,6 +126,9 @@
     <ClInclude Include="TestObjPool.h">
       <Filter>TestSuite</Filter>
     </ClInclude>
+    <ClInclude Include="..\TestSuite\TestLruCache.h">
+      <Filter>TestSuite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -192,6 +195,9 @@
       <Filter>MemProtect</Filter>
     </ClCompile>
     <ClCompile Include="TestObjPool.cpp">
+      <Filter>TestSuite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TestSuite\TestLruCache.cpp">
       <Filter>TestSuite</Filter>
     </ClCompile>
   </ItemGroup>
