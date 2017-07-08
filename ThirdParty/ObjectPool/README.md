@@ -1,2 +1,0 @@
-# ObjectPool
-    C++ Object Pool.

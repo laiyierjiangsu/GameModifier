@@ -36,6 +36,7 @@
 #include <stdexcept>
 #include <thread>
 #include <unordered_map>
+#include "ObjectPool.hpp"
 namespace lru11 {
 /**
  * base class to prevent copy
@@ -101,7 +102,8 @@ class Cache : private NoCopy {
   typedef std::list<KeyValuePair<Key, Value>> list_type;
   typedef Map map_type;
   typedef Lock lock_type;
-  using Guard = std::lock_guard<lock_type>;
+  typedef OPool::ObjectPool<Value>  Pool;
+   using Guard = std::lock_guard<lock_type>;
   /**
    * the max size is the hard limit of keys and (maxSize + elasticity) is the
    * soft limit
@@ -114,12 +116,21 @@ class Cache : private NoCopy {
   explicit Cache(size_t maxSize = 64, size_t elasticity = 10)
       : maxSize_(maxSize), elasticity_(elasticity)
   {
+	  pPool_ = new Pool(maxSize);
   }
   virtual ~Cache() = default;
-  size_t size() const {
+
+  size_t size() const
+  {
     Guard g(lock_);
     return cache_.size();
   }
+
+  Value* acquireObject()
+  {
+	  return &pPool_->acquireObject();
+  }
+
   bool empty() const {
     Guard g(lock_);
     return cache_.empty();
@@ -192,6 +203,8 @@ class Cache : private NoCopy {
 	{
       return false;
     }
+	//从对象池当中将对象移除
+	pPool_->releaseObject(iter->second->value);
 	//清理对象
     keys_.erase(iter->second);
     cache_.erase(iter);
@@ -244,6 +257,7 @@ class Cache : private NoCopy {
   list_type keys_;
   size_t maxSize_;
   size_t elasticity_;
+  Pool * pPool_;
 };
 
 }  // namespace LRUCache11

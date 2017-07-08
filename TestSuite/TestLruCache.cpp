@@ -1,6 +1,5 @@
 #include "TestLruCache.h"
 #include "ThirdParty/lrucache/LRUCache11.hpp"
-#include "ThirdParty/ObjectPool/ObjectPool.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -114,21 +113,21 @@ void TestLruCache::testWithLock() {
 #define MAX_ELISTIC_SIZE 10
 void TestLruCache::TestItem()
 {
-	OPool::ObjectPool<Item> requestPool(MAX_ITEM_SIZE + MAX_ELISTIC_SIZE);
 	ItemCache itemcache(MAX_ITEM_SIZE, MAX_ELISTIC_SIZE);
 	for (int i = 0; i < 100;i++)
 	{
-		Item a = requestPool.acquireObject();
+		Item& a = *itemcache.acquireObject();
 		a.Init(i, i);
 		itemcache.insert(a.Key(), a);
 	}
-
-	auto& item = itemcache.get(Item::GetKey(1, 1));
+	auto key = Item::GetKey(1, 1);
+	auto& item = itemcache.get(key);
 	printf("original con :%s\n", item.Content().c_str());
 	item.TestChange("I am changed");
 	printf("changed con :%s\n", item.Content().c_str());
-	auto& itemGet = itemcache.get(Item::GetKey(1, 1));
+	auto& itemGet = itemcache.get(key);
 	printf("get con againe :%s\n", itemGet.Content().c_str());
+	itemcache.remove(key);
 }
 
 void Item::Init(int iObjID, int iTempleID)
