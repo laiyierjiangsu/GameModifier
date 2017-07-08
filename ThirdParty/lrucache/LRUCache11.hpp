@@ -36,7 +36,6 @@
 #include <stdexcept>
 #include <thread>
 #include <unordered_map>
-
 namespace lru11 {
 /**
  * base class to prevent copy
@@ -113,7 +112,9 @@ class Cache : private NoCopy {
    * directly anyway! :)
    */
   explicit Cache(size_t maxSize = 64, size_t elasticity = 10)
-      : maxSize_(maxSize), elasticity_(elasticity) {}
+      : maxSize_(maxSize), elasticity_(elasticity)
+  {
+  }
   virtual ~Cache() = default;
   size_t size() const {
     Guard g(lock_);
@@ -131,65 +132,103 @@ class Cache : private NoCopy {
   void insert(const Key& k, const Value& v) {
     Guard g(lock_);
     const auto iter = cache_.find(k);
-    if (iter != cache_.end()) {
+    if (iter != cache_.end()) 
+	{
+		//std::list<KeyValuePair<Key, Value>>::iterator iter;
+		//迭代器里面放的是键值对，这里值等于 value
+	 
       iter->second->value = v;
+
+	  //Transfers only the element pointed by iter->second from keys_ into the container(keys._begin).
+	  //把这个对象放到列表的头部，表示最近使用的对象
       keys_.splice(keys_.begin(), keys_, iter->second);
+
       return;
     }
-
+	//Inserts a new element at the beginning of the list, right before its current first element.
+	//This new element is constructed in place using args as the arguments for its construction.
     keys_.emplace_front(k, v);
+	//缓存特定的对象
     cache_[k] = keys_.begin();
+	//清理对象
     prune();
   }
-  bool tryGet(const Key& kIn, Value& vOut) {
+  bool tryGet(const Key& kIn, Value& vOut) 
+  {
     Guard g(lock_);
     const auto iter = cache_.find(kIn);
-    if (iter == cache_.end()) {
+	//如果没有找到，返回错误
+    if (iter == cache_.end()) 
+	{
       return false;
     }
+	//将该
     keys_.splice(keys_.begin(), keys_, iter->second);
+	//返回对应的值
     vOut = iter->second->value;
+
     return true;
   }
-  const Value& get(const Key& k) {
+  Value& get(const Key& k)
+  {
     Guard g(lock_);
     const auto iter = cache_.find(k);
-    if (iter == cache_.end()) {
+	//找不到对应的对象
+    if (iter == cache_.end())
+	{
       throw KeyNotFound();
     }
+	//放在队列的头部
     keys_.splice(keys_.begin(), keys_, iter->second);
+	//返回对应的值
     return iter->second->value;
   }
-  bool remove(const Key& k) {
+
+  bool remove(const Key& k) 
+  {
     Guard g(lock_);
     auto iter = cache_.find(k);
-    if (iter == cache_.end()) {
+    if (iter == cache_.end())
+	{
       return false;
     }
+	//清理对象
     keys_.erase(iter->second);
     cache_.erase(iter);
     return true;
   }
-  bool contains(const Key& k) {
+  //判定key是否存在
+  bool contains(const Key& k) 
+  {
     Guard g(lock_);
     return cache_.find(k) != cache_.end();
   }
-
+  //开始设置的最大size
   size_t getMaxSize() const { return maxSize_; }
+  //弹性size
   size_t getElasticity() const { return elasticity_; }
+  //最大允许的对象数量
   size_t getMaxAllowedSize() const { return maxSize_ + elasticity_; }
+
+  // lamada 函数遍历
   template <typename F>
-  void cwalk(F& f) const {
+  void cwalk(F& f) const 
+  {
     Guard g(lock_);
     std::for_each(keys_.begin(), keys_.end(), f);
   }
 
  protected:
   size_t prune() {
+	//最大允许的大小
     size_t maxAllowed = maxSize_ + elasticity_;
-    if (maxSize_ == 0 || cache_.size() < maxAllowed) {
+	//没有超过
+    if (maxSize_ == 0 || cache_.size() < maxAllowed) 
+	{
       return 0;
     }
+	//超过了的话，把最后面的对象清理掉
+	//? 如何保证最后面的对象未被使用： 使用的时候都需要get，外面不进行任何的缓存
     size_t count = 0;
     while (cache_.size() > maxSize_) {
       cache_.erase(keys_.back().key);
