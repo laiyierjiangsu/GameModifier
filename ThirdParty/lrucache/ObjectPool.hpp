@@ -121,7 +121,7 @@ void ObjectPool<T>::arrayDeleteObject(T* obj)
 template <typename T>
 ObjectPool<T>::~ObjectPool()
 {
-	printf("-----deconstruct the object pool--------\n");
+	//printf("-----deconstruct the object pool--------\n");
     // free each of the allocation chunks
     for_each(allObjects.begin(), allObjects.end(), arrayDeleteObject);
 }

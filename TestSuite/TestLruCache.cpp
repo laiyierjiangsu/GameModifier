@@ -8,11 +8,11 @@
 #include <windows.h>
 
 using namespace lru11;
-typedef Cache<std::string, int32_t> KVCache;
+typedef LruCachePool<std::string, int32_t> KVCache;
 typedef KVCache::node_type KVNode;
 typedef KVCache::list_type KVList;
 
-typedef Cache<std::string, Item> ItemCache;
+typedef LruCachePool<std::string, Item> ItemCache;
 typedef ItemCache::node_type ItemNode;
 typedef ItemCache::list_type ItemList;
 
@@ -74,7 +74,7 @@ void TestLruCache::testNoLock()
 // Test a thread-safe version of the cache with a std::mutex
 void TestLruCache::testWithLock() {
 
-	using LCache = Cache<std::string, std::string, std::mutex>;
+	using LCache = LruCachePool<std::string, std::string, std::mutex>;
 	auto cachePrint2 =
 		[&](const LCache& c) {
 		std::cout << "Cache (size: " << c.size() << ") (max=" << c.getMaxSize() << ") (e=" << c.getElasticity() << ") (allowed:" << c.getMaxAllowedSize() << ")" << std::endl;
@@ -161,8 +161,8 @@ void TestLruCache::TestUsingObjpoolList()
 	OPool::ObjectPool<Item> requestPool(1000);
 	std::vector<Item*> vecUserReq;
 	int iCount = 0;
-	int iTotal = 5;
-	while (iCount < 5)
+	int iTotal = 1;
+	while (iCount < iTotal)
 	{
 		for (int i = 0; i < 300; i++)
 		{
@@ -187,8 +187,8 @@ void TestLruCache::TestUsingNewList()
 	DWORD iLast = timeGetTime();
 	std::vector<Item*> vecUserReq;
 	int iCount = 0;
-	int iTotal = 5;
-	while (iCount < 5)
+	int iTotal = 1;
+	while (iCount < iTotal)
 	{
 		for (int i = 0; i < 300; i++)
 		{

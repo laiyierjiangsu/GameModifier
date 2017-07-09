@@ -94,9 +94,8 @@ struct KeyValuePair {
  *	thread-safe
  */
 template <class Key, class Value, class Lock = NullLock,
-          class Map = std::unordered_map<
-              Key, typename std::list<KeyValuePair<Key, Value*>>::iterator>>
-class Cache : private NoCopy {
+class Map = std::unordered_map<Key, typename std::list<KeyValuePair<Key, Value*>>::iterator>>
+class LruCachePool : private NoCopy {
  public:
   typedef KeyValuePair<Key, Value*> node_type;
   typedef std::list<KeyValuePair<Key, Value*>> list_type;
@@ -113,12 +112,12 @@ class Cache : private NoCopy {
    * using a std::unordered_map
    * directly anyway! :)
    */
-  explicit Cache(size_t maxSize = 64, size_t elasticity = 10)
+  explicit LruCachePool(size_t maxSize = 64, size_t elasticity = 10)
       : maxSize_(maxSize), elasticity_(elasticity)
   {
 	  pPool_ = new Pool(maxSize);
   }
-  virtual ~Cache()
+  virtual ~LruCachePool()
   {
 	  if (pPool_)
 	  {
