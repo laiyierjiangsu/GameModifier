@@ -3,6 +3,8 @@
 class Item
 {
 public:
+	Item();
+	~Item();
 	void Init(int iObjID, int iTempleID);
 	std::string &Key();
 	static std::string GetKey(int iObj, int iT);
@@ -24,5 +26,7 @@ public:
 private:
 	void testNoLock();
 	void testWithLock();
-	void TestItem();
+	void TestLruItemList();
+	void TestUsingObjpoolList();
+	void TestUsingNewList();
 };

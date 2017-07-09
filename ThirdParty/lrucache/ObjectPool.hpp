@@ -121,6 +121,7 @@ void ObjectPool<T>::arrayDeleteObject(T* obj)
 template <typename T>
 ObjectPool<T>::~ObjectPool()
 {
+	printf("-----deconstruct the object pool--------\n");
     // free each of the allocation chunks
     for_each(allObjects.begin(), allObjects.end(), arrayDeleteObject);
 }
@@ -128,7 +129,10 @@ ObjectPool<T>::~ObjectPool()
 template <typename T>
 T& ObjectPool<T>::acquireObject()
 {
-    if (freeList.empty()) {
+    if (freeList.empty())
+	{
+		printf(" Allocate another trunk! \n");
+
         allocateChunk();
     }
     T* obj = freeList.front();

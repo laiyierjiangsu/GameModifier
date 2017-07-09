@@ -5,7 +5,7 @@
 #include <vector>
 #include <sstream>
 #include <memory>
-
+#include <windows.h>
 
 using namespace lru11;
 typedef Cache<std::string, int32_t> KVCache;
@@ -20,7 +20,9 @@ void TestLruCache::Test()
 {
 	//testNoLock();
 	//testWithLock();
-	TestItem();
+	//TestLruItemList();
+	TestUsingObjpoolList();
+	TestUsingNewList();
 }
 
 TestLruCache::TestLruCache()
@@ -111,14 +113,27 @@ void TestLruCache::testWithLock() {
 }
 #define MAX_ITEM_SIZE 100
 #define MAX_ELISTIC_SIZE 10
-void TestLruCache::TestItem()
+void TestLruCache::TestLruItemList()
 {
+	// with no lock
+	auto cachePrint =
+		[&](const ItemCache& c) {
+		std::cout << "Cache (size: " << c.size() << ") (max=" << c.getMaxSize() << ") (e="
+			<< c.getElasticity() << ") (allowed:" << c.getMaxAllowedSize() << ")" << std::endl;
+		size_t index = 0;
+		auto nodePrint = [&](const ItemNode& n) {
+			std::cout << " ... [" << ++index << "] " << n.key << " => " << n.value->Key() << std::endl;
+		};
+		c.cwalk(nodePrint);
+	};
+
 	ItemCache itemcache(MAX_ITEM_SIZE, MAX_ELISTIC_SIZE);
-	for (int i = 0; i < 100;i++)
+	for (int i = 0; i < MAX_ITEM_SIZE; i++)
 	{
 		Item* a = itemcache.acquireObject();
 		a->Init(i, i);
 		itemcache.insert(a->Key(), a);
+		cachePrint(itemcache);
 	}
 	auto key = Item::GetKey(1, 1);
 	auto item = itemcache.get(key);
@@ -128,6 +143,69 @@ void TestLruCache::TestItem()
 	auto itemGet = itemcache.get(key);
 	printf("get con againe :%s\n", itemGet->Content().c_str());
 	itemcache.remove(key);
+
+	//statr using elistic size
+	for (int i = MAX_ITEM_SIZE -1; i < MAX_ITEM_SIZE+ MAX_ELISTIC_SIZE + 10; i++)
+	{
+		Item* a = itemcache.acquireObject();
+		a->Init(i, i);
+		itemcache.insert(a->Key(), a);
+		cachePrint(itemcache);
+	}
+
+}
+
+void TestLruCache::TestUsingObjpoolList()
+{
+	DWORD iLast = timeGetTime();
+	OPool::ObjectPool<Item> requestPool(1000);
+	std::vector<Item*> vecUserReq;
+	int iCount = 0;
+	int iTotal = 5;
+	while (iCount < 5)
+	{
+		for (int i = 0; i < 300; i++)
+		{
+			Item& item = requestPool.acquireObject();
+			item.Init(i, i);
+			vecUserReq.push_back(&item);
+		}
+		int iSize = vecUserReq.size();
+		for (int i = 0; i < iSize; i++)
+		{
+			Item *p = vecUserReq[i];
+			requestPool.releaseObject(*p);
+		}
+		vecUserReq.clear();
+		iCount++;
+	}
+	printf("Using obj pool: %d\n", timeGetTime() - iLast);
+}
+
+void TestLruCache::TestUsingNewList()
+{
+	DWORD iLast = timeGetTime();
+	std::vector<Item*> vecUserReq;
+	int iCount = 0;
+	int iTotal = 5;
+	while (iCount < 5)
+	{
+		for (int i = 0; i < 300; i++)
+		{
+			Item* item = new Item;
+			item->Init(i, i);
+			vecUserReq.push_back(item);
+		}
+		int iSize = vecUserReq.size();
+		for (int i = 0; i < iSize; i++)
+		{
+			Item *p = vecUserReq[i];
+			delete p;
+		}
+		vecUserReq.clear();
+		iCount++;
+	}
+	printf("Using new method: %d\n", timeGetTime() - iLast);
 }
 
 void Item::Init(int iObjID, int iTempleID)
@@ -153,4 +231,14 @@ std::string Item::GetKey(int iObj, int iT)
 void Item::TestChange(std::string content)
 {
 	_content = content;
+}
+
+Item::~Item()
+{
+	//printf("~ item deconstruct %s\n", _key.c_str());
+}
+
+Item::Item()
+{
+	_key = "default";
 }

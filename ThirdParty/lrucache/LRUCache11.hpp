@@ -252,6 +252,7 @@ class Cache : private NoCopy {
     size_t count = 0;
     while (cache_.size() > maxSize_)
 	{
+		printf("----prune- cursize:%d, maxsize:%d\n", cache_.size() ,maxSize_);
 	  //从对象池当中将对象移除
 	  pPool_->releaseObject(*keys_.back().value);
 
