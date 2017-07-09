@@ -95,11 +95,11 @@ struct KeyValuePair {
  */
 template <class Key, class Value, class Lock = NullLock,
           class Map = std::unordered_map<
-              Key, typename std::list<KeyValuePair<Key, Value>>::iterator>>
+              Key, typename std::list<KeyValuePair<Key, Value*>>::iterator>>
 class Cache : private NoCopy {
  public:
-  typedef KeyValuePair<Key, Value> node_type;
-  typedef std::list<KeyValuePair<Key, Value>> list_type;
+  typedef KeyValuePair<Key, Value*> node_type;
+  typedef std::list<KeyValuePair<Key, Value*>> list_type;
   typedef Map map_type;
   typedef Lock lock_type;
   typedef OPool::ObjectPool<Value>  Pool;
@@ -118,7 +118,13 @@ class Cache : private NoCopy {
   {
 	  pPool_ = new Pool(maxSize);
   }
-  virtual ~Cache() = default;
+  virtual ~Cache()
+  {
+	  if (pPool_)
+	  {
+		  delete pPool_;
+	  }
+  }
 
   size_t size() const
   {
@@ -140,7 +146,7 @@ class Cache : private NoCopy {
     cache_.clear();
     keys_.clear();
   }
-  void insert(const Key& k, const Value& v) {
+  void insert(const Key& k, Value* v) {
     Guard g(lock_);
     const auto iter = cache_.find(k);
     if (iter != cache_.end()) 
@@ -164,7 +170,7 @@ class Cache : private NoCopy {
 	//清理对象
     prune();
   }
-  bool tryGet(const Key& kIn, Value& vOut) 
+  bool tryGet(const Key& kIn, Value** vOut) 
   {
     Guard g(lock_);
     const auto iter = cache_.find(kIn);
@@ -176,18 +182,18 @@ class Cache : private NoCopy {
 	//将该
     keys_.splice(keys_.begin(), keys_, iter->second);
 	//返回对应的值
-    vOut = iter->second->value;
+    *vOut = iter->second->value;
 
     return true;
   }
-  Value& get(const Key& k)
+  Value* get(const Key& k)
   {
     Guard g(lock_);
     const auto iter = cache_.find(k);
 	//找不到对应的对象
     if (iter == cache_.end())
 	{
-      throw KeyNotFound();
+      return nullptr;
     }
 	//放在队列的头部
     keys_.splice(keys_.begin(), keys_, iter->second);
@@ -204,10 +210,11 @@ class Cache : private NoCopy {
       return false;
     }
 	//从对象池当中将对象移除
-	pPool_->releaseObject(iter->second->value);
+	pPool_->releaseObject(*iter->second->value);
 	//清理对象
     keys_.erase(iter->second);
     cache_.erase(iter);
+
     return true;
   }
   //判定key是否存在
@@ -243,7 +250,11 @@ class Cache : private NoCopy {
 	//超过了的话，把最后面的对象清理掉
 	//? 如何保证最后面的对象未被使用： 使用的时候都需要get，外面不进行任何的缓存
     size_t count = 0;
-    while (cache_.size() > maxSize_) {
+    while (cache_.size() > maxSize_)
+	{
+	  //从对象池当中将对象移除
+	  pPool_->releaseObject(*keys_.back().value);
+
       cache_.erase(keys_.back().key);
       keys_.pop_back();
       ++count;

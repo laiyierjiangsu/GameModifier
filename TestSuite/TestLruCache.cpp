@@ -50,7 +50,7 @@ void TestLruCache::testNoLock()
 		};
 		c.cwalk(nodePrint);
 	};
-	KVCache c(5, 2);
+	/*KVCache c(5, 2);
 	c.insert("hello", 1);
 	c.insert("world", 2);
 	c.insert("foo", 3);
@@ -66,7 +66,7 @@ void TestLruCache::testNoLock()
 	cachePrint(c);
 	c.get("foo");
 	std::cout << "... foo should move to the top..." << std::endl;
-	cachePrint(c);
+	cachePrint(c);*/
 }
 
 // Test a thread-safe version of the cache with a std::mutex
@@ -83,7 +83,7 @@ void TestLruCache::testWithLock() {
 		c.cwalk(nodePrint);
 	};
 	// with a lock
-	LCache lc(25, 2);
+	/*LCache lc(25, 2);
 	auto worker = [&]() {
 		std::ostringstream os;
 		os << std::this_thread::get_id();
@@ -107,7 +107,7 @@ void TestLruCache::testWithLock() {
 		w->join();
 	}
 	std::cout << "... workers finished!" << std::endl;
-	cachePrint2(lc);
+	cachePrint2(lc);*/
 }
 #define MAX_ITEM_SIZE 100
 #define MAX_ELISTIC_SIZE 10
@@ -116,17 +116,17 @@ void TestLruCache::TestItem()
 	ItemCache itemcache(MAX_ITEM_SIZE, MAX_ELISTIC_SIZE);
 	for (int i = 0; i < 100;i++)
 	{
-		Item& a = *itemcache.acquireObject();
-		a.Init(i, i);
-		itemcache.insert(a.Key(), a);
+		Item* a = itemcache.acquireObject();
+		a->Init(i, i);
+		itemcache.insert(a->Key(), a);
 	}
 	auto key = Item::GetKey(1, 1);
-	auto& item = itemcache.get(key);
-	printf("original con :%s\n", item.Content().c_str());
-	item.TestChange("I am changed");
-	printf("changed con :%s\n", item.Content().c_str());
-	auto& itemGet = itemcache.get(key);
-	printf("get con againe :%s\n", itemGet.Content().c_str());
+	auto item = itemcache.get(key);
+	printf("original con :%s\n", item->Content().c_str());
+	item->TestChange("I am changed");
+	printf("changed con :%s\n", item->Content().c_str());
+	auto itemGet = itemcache.get(key);
+	printf("get con againe :%s\n", itemGet->Content().c_str());
 	itemcache.remove(key);
 }
 
