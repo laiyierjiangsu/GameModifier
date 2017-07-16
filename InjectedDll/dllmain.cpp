@@ -11,11 +11,12 @@
 #define EXPORTFUN extern "C" __declspec(dllexport) 
 
 #include <Windows.h>
-
+#include "ThirdParty/Decoder/crc32.h"
+#include <assert.h>
 HWND g_hWinProcess;
 HHOOK g_hHook;
 char g_szDllPath[MAX_PATH];
-
+char* pTestStr = "stddd";
 EXPORTFUN LRESULT MyMessageProcess(int Code, WPARAM wParam, LPARAM lParam)
 {
 	//
@@ -25,9 +26,26 @@ EXPORTFUN LRESULT MyMessageProcess(int Code, WPARAM wParam, LPARAM lParam)
 }
 EXPORTFUN void TestMessageBox()
 {
-	//
+	DWORD addr1, addr2, size;
+	_asm mov addr1, offset codeBegin;
+	_asm mov addr2, offset codeEnd;
+codeBegin:
+	//OutputDebugString(L"test");
+	//OutputDebugString(L"test0");
+	//OutputDebugString(L"test1");
+	int a = 0;
+	a = a + 1;
+	a = a - 1;
+
+	printf("ptest str%s ,%p ,%p\n", pTestStr, pTestStr, &pTestStr);
 	//你自己对消息的处理
-	MessageBoxW(NULL,L"Test",L"Test",MB_OK); 
+	//MessageBoxW(NULL, L"Test", L"Test", MB_OK);
+codeEnd:
+	size = addr2 - addr1;
+	DWORD curcrc32 = Crc32_ComputeBuf((void*)addr1, size);
+	DWORD oldCrc32 = 0xa4de60da;
+	assert(oldCrc32 == curcrc32);
+
 }
 
 

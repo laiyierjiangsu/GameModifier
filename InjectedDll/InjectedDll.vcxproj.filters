@@ -27,6 +27,9 @@
     <ClCompile Include="InjectedDll.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\ThirdParty\Decoder\crc32.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -34,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\Decoder\crc32.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
